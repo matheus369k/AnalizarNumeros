@@ -22,9 +22,8 @@ __NÃO HÁ VERSÃO PARA TELAS ALÉM DE DESKTOP OU TABLETS !!__
 __JavaScript__
   
 ```
-addEvenListener('click', () =>{}
-
-
+addEvenListener('click', () =>{})
 ```
+
 
 
