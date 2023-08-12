@@ -23,8 +23,6 @@ __JavaScript__
   
 ```
 addEvenListener('click', () =>{}
-
-
 ```
 
-
+![Sem título](https://github.com/matheus369k/AnalizarNumeros/assets/47065962/244a88d8-f053-4988-924e-f3f96b278c65)
