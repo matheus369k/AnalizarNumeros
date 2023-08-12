@@ -18,11 +18,8 @@ __NÃO HÁ VERSÃO PARA TELAS ALÉM DE DESKTOP OU TABLETS !!__
 ### 📑 Descrição do código
 ***
 __JavaScript__
-<<<<<<< HEAD
   
-```
-addEvenListener('click', () =>{})
-=======
+```addEvenListener('click', () =>{})```
 
 Para indentificar a interação do cliente com os botões abaixo 👇...
 
@@ -30,19 +27,16 @@ Para indentificar a interação do cliente com os botões abaixo 👇...
 
 Foi ultilizado o comando abaixo Para indentificar o click.
 
->>>>>>> f964152e86af25fdbea3072f7ebb2c57c4d123bc
 ```
 var.addEvenListener('click', () =>{
    ação...
 })
 ```
+
 __CSS__
 
-Para centralizar o site foi utilizado o comando```display-flex:flex;```.
+Para centralizar o site foi utilizado o comando ```display-flex:flex;```.
 
-<<<<<<< HEAD
-
-=======
 __HTML__
 
 Foi utilizado a tag ```<input type="number name="" id="">``` para a entrada dos valores.
@@ -60,4 +54,3 @@ Projeto está sob a licença MIT - veja o arquivo [LICENÇA.md](./LICENSE).
 ***
 🤟Agradeço por sua visualização do meu projeto.
 📃Se tiver alguma ideia para melhorar esse projeto sinta-se livre para mostrala.
->>>>>>> f964152e86af25fdbea3072f7ebb2c57c4d123bc
