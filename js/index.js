@@ -1,9 +1,8 @@
-const button = document.getElementById('button')
-const finalize = document.getElementById('finalize')
+
 const msglist = document.getElementById('msglist')
 let numberList = []
 
-finalize.addEventListener('click',() =>{
+function finalizar() {
     const inAll = numberList.length
 
     if(inAll == 0){
@@ -38,9 +37,9 @@ finalize.addEventListener('click',() =>{
                 msgAverage.innerHTML = `<p>The average at the values typed is: <strong>${average.toFixed(1)}</strong></p>`
             }
         }}
-})
+}
 
-button.addEventListener('click', () => {
+function toAdd() {
     msglist.classList.replace('on','off')
 
     const number = document.getElementById('inumber')
@@ -74,5 +73,5 @@ button.addEventListener('click', () => {
                 list.appendChild(item)              
                 
             }}}
-})
+}
 
