@@ -50,22 +50,25 @@ main {
     box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.747);
 
     padding: 50px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
-@media screen and ( min-width: 450px ) {
+@media screen and ( max-width: 450px ) {
     main {    
-        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
         border-radius: 5px;
     }
 }
 
 
-section.given-away-enter {
+.given-away-enter {
     grid-row-start: 1;
     grid-column-start: 1;
     grid-column-end: 4;
-    
 
     margin-bottom: 30px;
     font-size: 1em;
@@ -73,28 +76,29 @@ section.given-away-enter {
 
 }
 
-@media screen  and ( min-width: 450px ) {
-    section.given-away-enter {
+@media screen  and ( max-width: 450px ) {
+    .given-away-enter {
+        width: 100%;
         margin-bottom: 15px;
-        font-size: .8em;
+        font-size: .6em;
         padding-left: 10px;
     }
 }
 
-section.given-away-enter input {
+.given-away-enter input {
     border: none;
     border-radius: 15px;
     padding-left: 10px;
 }
 
-@media screen and ( min-width: 450px) {
-    section.given-away-enter input {
+@media screen and ( max-width: 450px) {
+    .given-away-enter .button {
+        font-size: 15px;
         border-radius: 10px;
-        padding-left: 5px;
     }
 }
 
-p input.box {
+.box {
     width: 120px;
     height: 40px;
 
@@ -103,8 +107,8 @@ p input.box {
     background-color: rgba(165, 42, 42, 0.267);
 }
 
-@media screen and ( min-width: 450px ) {
-    p input.box {
+@media screen and ( max-width: 450px ) {
+    .box {
         width: 60px;
         height: 40px;
     
@@ -112,10 +116,11 @@ p input.box {
     }
 }
 
-p input.button{
+.button{
     width: 100px;
     height:50px;
     border-radius: 9px;
+    border: none;
     margin-left: 10px;
 
     font-size: 1em;
@@ -128,38 +133,53 @@ p input.button{
     cursor: pointer;
 }
 
-@media screen and ( min-width: 450px ) {
-    p input.button{
-        width: 80px;
+@media screen and ( max-width: 450px ) {
+    .button{
+        width: 60px;
         height:35px;
         border-radius: 6px;
-        margin-left: 10px;
     
         font-size: 1em;
     }
 }
 
-p input.button:hover{
+.button:hover{
     background-color: rgb(187, 103, 103);
 }
 
-section.given-away-box{
+.given-away-box .button{
+    position:absolute;
+    left: calc(50% - 70px);
+    margin-top: -20px;
+}
+
+.given-away-box{
     width: 90%;
-    min-width: 200px;
 
     grid-row-start: 2;
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 3;
-    
+
     font-weight: 900;
+}
+
+@media screen and ( max-width: 450px ) {
+    .given-away-box .button {
+        position: relative;
+        left: calc(50% - 110px);
+
+        margin-top: 0px;
+        margin-bottom: 10px;
+        width: 200px;
+    }
 }
 
 .given-away-box input {
     border: none;
 }
 
-select.list{
+.list{
     grid-row-end: 2;
     grid-row-start: 3;
     grid-column-start: 3;
@@ -176,8 +196,8 @@ select.list{
     
 }
 
-@media screen and ( min-width: 450px ) {
-    select.list{
+@media screen and ( max-width: 450px ) {
+    .list{
         margin-bottom: 20px;
         padding: 5px;
     
@@ -185,26 +205,26 @@ select.list{
     }
 }
 
-select.list option:hover {
+.list option:hover {
     background-color: rgba(90, 56, 211, 0.37);
 }
 
-section.on p{
+.on p{
     font-weight: 500;
     font-size: 1em;
     margin-top: 15px;
 }
 
-@media screen and ( min-width: 450px ) {
-    section.on p{
-        font-weight: 400;
-        font-size: .9em;
+@media screen and ( max-width: 450px ) {
+    .on p{
+        font-weight: 500;
+        font-size: 1em;
         margin-bottom: 10px;
         margin-left: 10px;
     }
 }
 
-section.off{
+.off{
     display: none;
 }
 
