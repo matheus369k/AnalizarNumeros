@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+
+    background-color: rgb(99, 51, 51);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+header h1.title{
+    color: white;
+    text-shadow: 2px 2px 0px black;
+
+    margin-bottom: 10px;
+}
+
+main{
+    background-color: white;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.747);
+
+    padding: 50px;
+    border-radius: 10px;
+}
+
+
+section.given-away-enter{
+    margin-bottom: 30px;
+
+    font-size: 1.4em;
+
+}
+
+p input.box{
+    width: 120px;
+    height: 40px;
+
+    font-size: 1.3em;
+
+    background-color: rgba(165, 42, 42, 0.267);
+}
+
+p input.button{
+    width: 150px;
+    height:50px;
+    border-radius: 9px;
+    margin-left: 10px;
+
+    font-size: 1.3em;
+
+    color: white;
+    background-color: rgb(253, 150, 150);
+    box-shadow:1px 1px 0px rgba(0, 0, 0, 0.589) ;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.432);
+
+    cursor: pointer;
+}
+
+p input.button:hover{
+    background-color: rgb(187, 103, 103);
+}
+
+section.given-away-box{
+    margin: 20px 0px;
+    
+    font-weight: 900;
+}
+
+select.list{
+    width: 60%;
+    height: 200px;
+    margin-bottom: 30px;
+    padding: 5px;
+
+    font-size: 1.4em;
+
+    background-color: rgba(165, 42, 42, 0.144) ;
+    
+}
+
+select.list option:hover{
+    background-color: rgba(90, 56, 211, 0.37);
+}
+
+section.on p{
+    font-weight: 500;
+    font-size: 1.2em;
+    margin-top: 15px;
+}
+
+section.off{
+    display: none;
+}
+
+footer p{
+    color: white;
+
+    font-size: 1.7em;
+    
+    margin-top: 20px;
+}
