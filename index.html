@@ -1,175 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Number to analyze</title>
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-<<<<<<< HEAD
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
 
-</head>
-
-<body>
-
-
+  <body>
     <header>
-        <h1 class="title">Number to Analyze</h1>
+      <h1 class="title">Number to Analyze</h1>
     </header>
 
-
     <main>
+      <section class="given-away-enter">
+        <p>
+          <label for="inumber"> Number (in between 1 and 100): </label>
+          <input class="box" type="number" name="number" id="inumber" />
 
+          <button id="button" class="button" type="submit">
+            To add
+          </button>
+        </p>
+      </section>
 
-        <section class="given-away-enter">
+      <section class="given-away-box">
+        <select
+          title="list add numbers"
+          class="list"
+          name="number"
+          id="number"
+          size="10"
+        ></select>
 
-            <p>
-                <label for="inumber">Number (in between 1 and 100):</label>
-                <input class="box" type="number" name="number" id="inumber">
-                <input id="button" class="button" type="submit" value="To Add">
-            </p>
+        <p>
+          <input
+            id="finalize"
+            class="button"
+            type="submit"
+            value="Finalize"
+          />
+        </p>
+      </section>
 
-        </section>
-
-
-        <section class="given-away-box">
-
-            <select class="list" name="number" id="number" size="10">
-            </select>
-
-            <p>
-                <input id="finalize" class="button" type="submit" value="Finalize">
-            </p>
-
-        </section>
-
-
-        <section id="msglist" class="given-away-exit off">
-            
-            <p id="msg-register"></p>
-            <p id="msg-large"></p>
-            <p id="msg-small"></p>
-            <p id="msg-sum"></p>
-            <p id="msg-average"></p>
-
-        </section>
-
-
+      <ul id="msglist" class="given-away-exit off">
+        <li id="msg-register"></li>
+        <li id="msg-large"></li>
+        <li id="msg-small"></li>
+        <li id="msg-sum"></li>
+        <li id="msg-average"></li>
+      </ul>
     </main>
 
     <footer>
-
-        <p>
-            &copy;CursoemVideo
-        </p>
-
+      <p>&copy;CursoemVideo</p>
     </footer>
 
-    <script src="src/js/index.js"></script>
-
-</body>
-=======
-    <link rel="stylesheet" href="css/style.css">
-
-</head>
-
-    <body>
-
-        <header>
-
-            <h1 class="title">
-                Number to Analyze
-            </h1>
-
-        </header>
-
-        <main>
-
-            <section class="given-away-enter">
-
-                <p>
-                    <label 
-                    for="inumber">
-                        Number (in between 1 and 100):
-                    </label>
-                    <input 
-                    class="box" 
-                    type="number" 
-                    name="number" 
-                    id="inumber">
-
-                    <button 
-                    onclick="toAdd()"
-                    id="button" 
-                    class="button" 
-                    type="submit" >To add</button>
-                    
-                </p>
-
-            </section>
-
-            <section class="given-away-box">
-
-                <select 
-                class="list" 
-                name="number" 
-                id="number" 
-                size="10">
-        
-                </select>
-
-                <p>
-                    <input 
-                    onclick="finalizar()"
-                    id="finalize" 
-                    class="button" 
-                    type="submit" 
-                    value="Finalize">
-                </p>
-
-            </section>
-
-
-            <section 
-            id="msglist" 
-            class="given-away-exit off">
-                
-                <p id="msg-register">
-
-                </p>
-                <p id="msg-large">
-
-                </p>
-                <p id="msg-small"
-                ></p>
-                <p id="msg-sum">
-
-                </p>
-                <p id="msg-average">
-
-                </p>
-
-            </section>
-
-
-        </main>
-
-        <footer>
-
-            <p>
-                &copy;CursoemVideo
-            </p>
-
-        </footer>
-
-        <script src="js/index.js">
-
-        </script>
-
-    </body>
->>>>>>> refs/remotes/origin/main
-
+    <script src="src/server/index.js"></script>
+    <script src="src/server/index.ts"></script>
+  </body>
 </html>

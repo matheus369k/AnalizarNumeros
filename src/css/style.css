@@ -15,9 +15,26 @@ body{
     align-items: center;
 
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 600;
 }
+
+/*remover borda e controles*/
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfild;
+}
+
+texturea:focus, input:focus, select:focus {
+    box-shadow: none;
+    border: none;
+    outline: 0;
+}
+
+
 
 header h1.title{
     color: white;
@@ -26,80 +43,190 @@ header h1.title{
     margin-bottom: 10px;
 }
 
-main{
+main {
+    display: grid;
+
     background-color: white;
     box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.747);
 
     padding: 50px;
-    border-radius: 10px;
+    border-radius: 20px;
+}
+
+@media screen and ( max-width: 650px ) {
+    main {    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 5px;
+    }
 }
 
 
-section.given-away-enter{
+.given-away-enter {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+
     margin-bottom: 30px;
-
-    font-size: 1.4em;
+    font-size: 1em;
+    padding-left: 20px;
 
 }
 
-p input.box{
+@media screen  and ( max-width: 650px ) {
+    .given-away-enter {
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: .6em;
+        padding-left: 10px;
+    }
+}
+
+.given-away-enter input {
+    border: none;
+    border-radius: 15px;
+    padding-left: 10px;
+}
+
+@media screen and ( max-width: 650px ) {
+    .given-away-enter .button {
+        font-size: 15px;
+        border-radius: 10px;
+    }
+}
+
+.box {
     width: 120px;
     height: 40px;
 
-    font-size: 1.3em;
+    font-size: 1em;
 
     background-color: rgba(165, 42, 42, 0.267);
 }
 
-p input.button{
-    width: 150px;
+@media screen and ( max-width: 650px ) {
+    .box {
+        width: 60px;
+        height: 40px;
+    
+        font-size: 1em;
+    }
+}
+
+.button{
+    width: 100px;
     height:50px;
     border-radius: 9px;
+    border: none;
     margin-left: 10px;
 
-    font-size: 1.3em;
+    font-size: 1em;
 
     color: white;
     background-color: rgb(253, 150, 150);
-    box-shadow:1px 1px 0px rgba(0, 0, 0, 0.589) ;
+    box-shadow:1px 1px 0px rgba(0, 0, 0, 0.398) ;
     text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.432);
 
     cursor: pointer;
 }
 
-p input.button:hover{
+@media screen and ( max-width: 650px ) {
+    .button{
+        width: 60px;
+        height:35px;
+        border-radius: 6px;
+    
+        font-size: 1em;
+    }
+}
+
+.button:hover{
     background-color: rgb(187, 103, 103);
 }
 
-section.given-away-box{
-    margin: 20px 0px;
-    
+.given-away-box .button{
+    position:absolute;
+    left: calc(50% - 70px);
+    margin-top: -20px;
+}
+
+.given-away-box{
+    width: 90%;
+
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
     font-weight: 900;
 }
 
-select.list{
-    width: 60%;
+@media screen and ( max-width: 650px ) {
+    .given-away-box .button {
+        position: relative;
+        left: calc(50% - 110px);
+
+        margin-top: 0px;
+        margin-bottom: 10px;
+        width: 200px;
+    }
+}
+
+.given-away-box input {
+    border: none;
+}
+
+.list{
+    grid-row-end: 2;
+    grid-row-start: 3;
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    width: 250px;
     height: 200px;
+    margin-right: 10px;
     margin-bottom: 30px;
     padding: 5px;
 
-    font-size: 1.4em;
+    font-size: 1.1em;
 
     background-color: rgba(165, 42, 42, 0.144) ;
     
 }
 
-select.list option:hover{
+@media screen and ( max-width: 650px ) {
+    .list{
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 20px;
+    
+        font-size: 1em;
+    }
+}
+
+.list option:hover {
     background-color: rgba(90, 56, 211, 0.37);
 }
 
-section.on p{
+.on p{
     font-weight: 500;
-    font-size: 1.2em;
+    font-size: 1em;
     margin-top: 15px;
 }
 
-section.off{
+@media screen and ( max-width: 650px ) {
+    .on p{
+        font-weight: 500;
+        font-size: 1em;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+}
+
+.off{
     display: none;
 }
 
