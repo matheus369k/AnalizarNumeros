@@ -1,15 +1,15 @@
 {
 	"compilerOptions": {
-		"target": "es5",
-		"module": "commonjs",
+		"target": "ES2020",
+		"module": "CommonJS",
 		"moduleResolution": "node",
 		"lib": [
-			"es2015",
+			"ES2020",
 			"DOM"
 		],
 
-		"rootDir": "src/server",
-		"outDir": "lib",
+		"rootDir": "src/server/ts/index.js",
+		"outDir": "src/server/js",
 
 		"strict": true,
 		"alwaysStrict": true,
@@ -30,7 +30,8 @@
 		"downlevelIteration": true,
 		"declaration": true,
 
-		"pretty": true
+		"pretty": true,
+		"allowJs": true
 	},
 	"include": [
 		"typings/**/*",

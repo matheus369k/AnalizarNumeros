@@ -17,16 +17,11 @@
     </header>
 
     <main>
-      <section class="given-away-enter">
-        <p>
+      <form class="given-away-enter">
           <label for="inumber"> Number (in between 1 and 100): </label>
-          <input class="box" type="number" name="number" id="inumber" />
-
-          <button id="button" class="button" type="submit">
-            To add
-          </button>
-        </p>
-      </section>
+          <input required class="box" type="number" name="number" id="inumber" />
+          <input id="button" class="button" type="submit">
+      </form>
 
       <section class="given-away-box">
         <select
@@ -60,7 +55,7 @@
       <p>&copy;CursoemVideo</p>
     </footer>
 
-    <script src="src/server/index.js"></script>
-    <script src="src/server/index.ts"></script>
+    <script type="commonjs" src="src/server/index.js"></script>
+    <script type="commonjs" src="src/server/index.ts"></script>
   </body>
 </html>
