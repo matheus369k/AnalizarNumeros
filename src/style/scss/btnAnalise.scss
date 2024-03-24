@@ -1,0 +1,44 @@
+.btn-analise {
+  width: 206px;
+  height: 54px;
+  background-color: #1e1e1e;
+  color: #b4b4b4;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  i {
+    margin-bottom: -3px;
+    margin-right: 2px;
+    width: max-content;
+    background-color: transparent;
+
+    svg {
+      width: max-content;
+      height: 25px;
+
+      path{
+        fill: #b4b4b4;
+      }
+
+      circle{
+        stroke: #b4b4b4;
+      }
+
+      rect {
+        fill: transparent;
+      }
+    }
+  }
+
+  span {
+    font-size: 20px;
+    font-weight: normal;
+  }
+}

@@ -1,0 +1,47 @@
+.numbers-container {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(92, 92, 92, 50%);
+  height: 72px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ul {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    column-gap: 18px;
+    color: white;
+    font-weight: bold;
+    overflow: hidden;
+    
+    li {
+        font-size: 2rem;
+
+        &::after {
+            content: "-";
+            margin-left: 18px;
+        }
+
+        &:nth-last-child(1) {
+            &::after {
+                content: "";
+            }
+        }
+    }
+  }
+
+  button {
+    background: transparent;
+    width: 80px;
+    text-align: center;
+
+    svg, path {
+        height: max-content;
+        width: 50px;
+        fill: white;
+    }
+  }
+}

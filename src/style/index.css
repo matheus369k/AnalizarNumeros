@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Orbitron", sans-serif;
+  list-style: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfild;
+}
+
+texturea:focus, input:focus, select:focus {
+  box-shadow: none;
+  border: none;
+  outline: 0;
+}
+
+.form-get-Numbers {
+  width: 560px;
+  height: 52px;
+  background-color: #1d1d1d;
+  margin: 80px auto;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+.form-get-Numbers input {
+  background-color: transparent;
+  color: #818181;
+  margin-left: 25px;
+}
+.form-get-Numbers .submit {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3rem;
+}
+.form-get-Numbers .get-number {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.numbers-container {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(92, 92, 92, 0.5);
+  height: 72px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.numbers-container ul {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  column-gap: 18px;
+  color: white;
+  font-weight: bold;
+  overflow: hidden;
+}
+.numbers-container ul li {
+  font-size: 2rem;
+}
+.numbers-container ul li::after {
+  content: "-";
+  margin-left: 18px;
+}
+.numbers-container ul li:nth-last-child(1)::after {
+  content: "";
+}
+.numbers-container button {
+  background: transparent;
+  width: 80px;
+  text-align: center;
+}
+.numbers-container button svg, .numbers-container button path {
+  height: max-content;
+  width: 50px;
+  fill: white;
+}
+
+.btn-analise {
+  width: 206px;
+  height: 54px;
+  background-color: #1e1e1e;
+  color: #b4b4b4;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.btn-analise i {
+  margin-bottom: -3px;
+  margin-right: 2px;
+  width: max-content;
+  background-color: transparent;
+}
+.btn-analise i svg {
+  width: max-content;
+  height: 25px;
+}
+.btn-analise i svg path {
+  fill: #b4b4b4;
+}
+.btn-analise i svg circle {
+  stroke: #b4b4b4;
+}
+.btn-analise i svg rect {
+  fill: transparent;
+}
+.btn-analise span {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.msg-container {
+  display: none;
+}
+
+body {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(../assets/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+}
+body main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=index.css.map */

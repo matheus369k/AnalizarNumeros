@@ -19,21 +19,6 @@ body{
     font-weight: 600;
 }
 
-/*remover borda e controles*/
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfild;
-}
-
-texturea:focus, input:focus, select:focus {
-    box-shadow: none;
-    border: none;
-    outline: 0;
-}
-
 
 
 header h1.title{
