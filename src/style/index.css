@@ -126,7 +126,44 @@ texturea:focus, input:focus, select:focus {
   font-weight: normal;
 }
 
-.msg-container {
+.msg-container.show {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 762px;
+  height: 508px;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: hsla(0, 0%, 85%, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+.msg-container.show button {
+  margin: 25px;
+  align-self: flex-end;
+  background-color: transparent;
+  cursor: pointer;
+}
+.msg-container.show button svg, .msg-container.show button path {
+  width: 30px;
+  height: 30px;
+  stroke: #fff;
+}
+.msg-container.show ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 34px;
+}
+.msg-container.show ul li {
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 25px;
+}
+
+.msg-container.hidde {
   display: none;
 }
 

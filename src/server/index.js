@@ -1,59 +1,72 @@
-var msglist = document.getElementById("msg-container");
-var btn_finnish = document.getElementById("finalize");
-var btn_add = document.getElementById("submit");
-var input = document.getElementById("get-number");
+var msgList = document.querySelector('#msg-container');
+var btnAnalise = document.getElementById('btn-analise');
+var btnAdd = document.getElementById('submit');
+var input = document.getElementById('get-number');
+var btnClose = document.getElementById('btn-close');
 var numberList = [];
-btn_add === null || btn_add === void 0 ? void 0 : btn_add.addEventListener("click", function (e) {
+btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click', function (e) {
     e === null || e === void 0 ? void 0 : e.preventDefault();
-    console.log(input);
-    if (!input)
-        return console.log('input undefined');
-    if (!msglist)
-        return console.log('list message undefined');
-    toAdd(msglist, numberList, input);
-    input.value = "";
+    if (input == null)
+        return;
+    toAdd(numberList, input);
+    input.value = '';
 });
-if (btn_finnish && msglist) {
-    btn_finnish.addEventListener("click", function (e) {
-        e === null || e === void 0 ? void 0 : e.preventDefault();
-        finnish(msglist, numberList, sum(numberList), middle(numberList, sum));
-    });
-}
-function toAdd(propsMsglist, propsNumberList, input) {
-    propsMsglist.classList.replace("on", "off");
-    var input_value = input.value;
-    var numbers_container = document.querySelector("#numbers-container>ul");
-    var element_li = document.createElement("li");
-    if (!input_value)
-        return console.log("input value empty!");
-    var verification = propsNumberList.indexOf(input_value);
-    if (input_value < 1 || input_value > 100)
-        return alert("ERRO type it a number in between 1 and 100");
-    if (verification != -1 || !numbers_container)
-        return alert("Number ".concat(input_value, " exist at on list or invalid!"));
-    propsNumberList.push(input_value);
-    sortList(propsNumberList);
-    element_li.textContent = "".concat(input_value);
-    console.log(element_li, numbers_container);
-    numbers_container.appendChild(element_li);
-}
-function finnish(msglist, numberList, sum, average) {
-    var inAll = numberList.length;
-    var messages = {
-        register: "<p>In all,we have <strong>".concat(inAll, "</strong> numbers registered.</p>"),
-        large: "<p>The bigger value informed he was: <strong>".concat(numberList[inAll - 1], "</strong></p>"),
-        small: "<p>The smaller value informed is: <strong>".concat(numberList[0], "</strong></p>"),
-        sum: "<p>adding alls at the values we have: <strong>".concat(sum, "</strong></p>"),
-        average: "<p>The average at the values typed is: <strong>".concat(average.toFixed(1), "</strong></p>"),
-    };
-    if (inAll == 0)
-        return alert("add one value!");
-    msglist.classList.replace("off", "on");
-    for (var ind_chil = 0; ind_chil < Object.values(messages).length; ind_chil++) {
-        var message_element = document.getElementById("msg-".concat(Object.keys(messages)[ind_chil]));
-        if (message_element)
-            message_element.innerHTML = Object.values(messages)[ind_chil];
+btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListener('click', function () {
+    if (msgList == null)
+        return;
+    analiseNumbers(numberList, sum(numberList), middle(numberList, sum));
+    showHideMessagesList(msgList, 'hidde', 'show');
+});
+btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', function () {
+    if (msgList == null)
+        return;
+    showHideMessagesList(msgList, 'show', 'hidde');
+});
+btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', function () {
+    if (msgList == null)
+        return;
+    showHideMessagesList(msgList, 'show', 'hidde');
+});
+function toAdd(propsNumberList, input) {
+    var inputValue = parseInt(input.value);
+    var numbersContainer = document.querySelector('#numbers-container>ul');
+    var elementLi = document.createElement('li');
+    var verification = propsNumberList.indexOf(inputValue);
+    if (inputValue < 1 || inputValue > 100) {
+        alert('ERRO type it a number in between 1 and 100');
+        return;
     }
+    if (verification > 0 || numbersContainer == null) {
+        alert("Number ".concat(inputValue, " exist at on list or invalid!"));
+        return;
+    }
+    propsNumberList.push(inputValue);
+    sortList(propsNumberList);
+    elementLi.textContent = "".concat(inputValue);
+    numbersContainer.appendChild(elementLi);
+}
+function analiseNumbers(propsNumberList, propsSum, propsAverage) {
+    var inAll = propsNumberList.length;
+    var messages = {
+        register: "In all,we have <strong>".concat(inAll, "</strong> numbers registered."),
+        large: "The bigger value informed he was: <strong>".concat(propsNumberList[inAll - 1], "</strong>"),
+        small: "The smaller value informed is: <strong>".concat(propsNumberList[0], "</strong>"),
+        sum: "adding alls at the values we have: <strong>".concat(propsSum, "</strong>"),
+        average: "The average at the values typed is: <strong>".concat(propsAverage.toFixed(1), "</strong>")
+    };
+    if (inAll === 0) {
+        alert('add one value!');
+        return;
+    }
+    for (var indChil = 0; indChil < Object.values(messages).length; indChil++) {
+        var messageElement = document.getElementById("msg-".concat(Object.keys(messages)[indChil]));
+        if (messageElement == null)
+            return;
+        messageElement.innerHTML = Object.values(messages)[indChil];
+    }
+}
+function showHideMessagesList(propsMsgList, propsCurrentClass, propsNewClass) {
+    propsMsgList.classList.replace(propsCurrentClass, propsNewClass);
 }
 function sortList(list) {
     return list.sort(function (prev, next) { return prev - next; });
@@ -62,5 +75,8 @@ function middle(numbers, sum) {
     return sum(numbers) / numbers.length;
 }
 function sum(numbers) {
-    return numbers.reduce(function (prev, current) { return prev + current; });
+    var initialValue = 0;
+    console.log(numbers);
+    var total = numbers.reduce(function (accumulator, current) { return accumulator + current; }, initialValue);
+    return total;
 }

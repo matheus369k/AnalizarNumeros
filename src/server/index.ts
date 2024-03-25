@@ -1,100 +1,117 @@
-const msglist = document.getElementById("msg-container");
-const btn_finnish = document.getElementById("finalize");
-const btn_add = document.getElementById("submit");
-const input = document.getElementById("get-number");
-let numberList: number[] = [];
+const msgList = document.querySelector('#msg-container')
+const btnAnalise = document.getElementById('btn-analise')
+const btnAdd = document.getElementById('submit')
+const input = document.getElementById('get-number')
+const btnClose = document.getElementById('btn-close')
+const numberList: number[] = []
 
-btn_add?.addEventListener("click", (e) => {
-  e?.preventDefault();
-  console.log(input);
+btnAdd?.addEventListener('click', (e) => {
+  e?.preventDefault()
 
-  if (!input) return console.log('input undefined');
-  if (!msglist) return  console.log('list message undefined');
+  if (input == null) return
 
-  toAdd(msglist, numberList, input);
+  toAdd(numberList, input)
 
-  input.value="";
-});
+  input.value = ''
+})
 
-if (btn_finnish && msglist) {
-  btn_finnish.addEventListener("click", (e) => {
-    e?.preventDefault();
-    finnish(msglist, numberList, sum(numberList), middle(numberList, sum));
-  });
-}
+btnAnalise?.addEventListener('click', () => {
+  if (msgList == null) return
 
-function toAdd(
-  propsMsglist: HTMLElement,
+  analiseNumbers(numberList, sum(numberList), middle(numberList, sum))
+  showHideMessagesList(msgList, 'hidde', 'show')
+})
+
+btnClose?.addEventListener('click', () => {
+  if (msgList == null) return
+
+  showHideMessagesList(msgList, 'show', 'hidde')
+})
+
+btnClose?.addEventListener('click', () => {
+  if (msgList == null) return
+
+  showHideMessagesList(msgList, 'show', 'hidde')
+})
+
+function toAdd (
   propsNumberList: number[],
   input: HTMLElement
-) {
-  propsMsglist.classList.replace("on", "off");
+): void {
+  const inputValue: number = parseInt(input.value)
+  const numbersContainer = document.querySelector('#numbers-container>ul')
+  const elementLi = document.createElement('li')
 
-  const input_value = input.value;
-  const numbers_container = document.querySelector("#numbers-container>ul");
-  const element_li = document.createElement("li");
+  const verification = propsNumberList.indexOf(inputValue)
 
-  if (!input_value) return console.log("input value empty!");
+  if (inputValue < 1 || inputValue > 100) { alert('ERRO type it a number in between 1 and 100'); return }
 
-  const verification = propsNumberList.indexOf(input_value);
+  if (verification > 0 || numbersContainer == null) { alert(`Number ${inputValue} exist at on list or invalid!`); return }
 
-  if (input_value < 1 || input_value > 100)
-    return alert("ERRO type it a number in between 1 and 100");
+  propsNumberList.push(inputValue)
+  sortList(propsNumberList)
+  elementLi.textContent = `${inputValue}`
 
-  if (verification != -1 || !numbers_container)
-    return alert(`Number ${input_value} exist at on list or invalid!`);
-
-  propsNumberList.push(input_value);
-  sortList(propsNumberList);
-  element_li.textContent = `${input_value}`;
-
-  console.log(element_li, numbers_container);
-  numbers_container.appendChild(element_li);
+  numbersContainer.appendChild(elementLi)
 }
 
-function finnish(
-  msglist: HTMLElement,
-  numberList: number[],
-  sum: number,
-  average: number
-) {
-  const inAll = numberList.length;
+function analiseNumbers (
+  propsNumberList: number[],
+  propsSum: number,
+  propsAverage: number
+): void {
+  const inAll = propsNumberList.length
   const messages = {
-    register: `<p>In all,we have <strong>${inAll}</strong> numbers registered.</p>`,
-    large: `<p>The bigger value informed he was: <strong>${
-      numberList[inAll - 1]
-    }</strong></p>`,
-    small: `<p>The smaller value informed is: <strong>${numberList[0]}</strong></p>`,
-    sum: `<p>adding alls at the values we have: <strong>${sum}</strong></p>`,
-    average: `<p>The average at the values typed is: <strong>${average.toFixed(
+    register: `In all,we have <strong>${inAll}</strong> numbers registered.`,
+    large: `The bigger value informed he was: <strong>${
+      propsNumberList[inAll - 1]
+    }</strong>`,
+    small: `The smaller value informed is: <strong>${propsNumberList[0]}</strong>`,
+    sum: `adding alls at the values we have: <strong>${propsSum}</strong>`,
+    average: `The average at the values typed is: <strong>${propsAverage.toFixed(
       1
-    )}</strong></p>`,
-  };
+    )}</strong>`
+  }
 
-  if (inAll == 0) return alert("add one value!");
-
-  msglist.classList.replace("off", "on");
+  if (inAll === 0) { alert('add one value!'); return }
 
   for (
-    let ind_chil = 0;
-    ind_chil < Object.values(messages).length;
-    ind_chil++
+    let indChil = 0;
+    indChil < Object.values(messages).length;
+    indChil++
   ) {
-    const message_element = document.getElementById(
-      `msg-${Object.keys(messages)[ind_chil]}`
-    );
+    const messageElement = document.getElementById(
+      `msg-${Object.keys(messages)[indChil]}`
+    )
 
-    if (message_element)
-      message_element.innerHTML = Object.values(messages)[ind_chil];
+    if (messageElement == null) return
+
+    messageElement.innerHTML = Object.values(messages)[indChil]
   }
 }
 
-function sortList(list: number[]) {
-  return list.sort((prev: number, next: number) => prev - next);
+function showHideMessagesList (
+  propsMsgList: Element,
+  propsCurrentClass: string,
+  propsNewClass: string
+): void {
+  propsMsgList.classList.replace(propsCurrentClass, propsNewClass)
 }
-function middle(numbers: number[], sum: Function) {
-  return sum(numbers) / numbers.length;
+
+function sortList (list: number[]): number[] {
+  return list.sort((prev: number, next: number) => prev - next)
 }
-function sum(numbers: number[]) {
-  return numbers.reduce((prev: number, current: number) => prev + current);
+
+function middle (numbers: number[], sum: (numbers: number[]) => number): number {
+  return sum(numbers) / numbers.length
+}
+
+function sum (numbers: number[]): number {
+  const initialValue = 0
+  console.log(numbers)
+  const total = numbers.reduce(
+    (accumulator: number, current: number) => accumulator + current,
+    initialValue
+  )
+  return total
 }
