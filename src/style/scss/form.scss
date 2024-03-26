@@ -1,7 +1,8 @@
 .form-get-Numbers {
   width: 560px;
   height: 52px;
-  background-color: #1d1d1d;
+  background-color: rgb(29, 29, 29, 80%);
+  border: 1px solid rgba(128, 128, 128, 0.479);
   margin: 80px auto;
   border-radius: 50px;
   display: flex;
@@ -11,6 +12,11 @@
     background-color: transparent;
     color: #818181;
     margin-left: 25px;
+  }
+
+  input::placeholder{
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .submit {

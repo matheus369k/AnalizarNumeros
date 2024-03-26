@@ -62,15 +62,35 @@ function analiseNumbers (
 ): void {
   const inAll = propsNumberList.length
   const messages = {
-    register: `In all,we have <strong>${inAll}</strong> numbers registered.`,
-    large: `The bigger value informed he was: <strong>${
+    register: `<?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
+    </svg><p>Foram registrados <span>${inAll}</span> numeros ao todo</p>`,
+    large: `<?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
+    </svg><p>O maior numero inserido foi <span>${
       propsNumberList[inAll - 1]
-    }</strong>`,
-    small: `The smaller value informed is: <strong>${propsNumberList[0]}</strong>`,
-    sum: `adding alls at the values we have: <strong>${propsSum}</strong>`,
-    average: `The average at the values typed is: <strong>${propsAverage.toFixed(
+    }</span></p>`,
+    small: `<?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
+    </svg><p>O menor numero inserido foi <span>${propsNumberList[0]}</span></p>`,
+    sum: `<?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
+    </svg><p>A soma de todos os numeros e <span>${propsSum}</span></p>`,
+    average: `<?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+    <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
+    </svg><p>A media de todos os numeros e <span>${propsAverage.toFixed(
       1
-    )}</strong>`
+    )}</span></p>`
   }
 
   if (inAll === 0) { alert('add one value!'); return }
@@ -108,7 +128,6 @@ function middle (numbers: number[], sum: (numbers: number[]) => number): number 
 
 function sum (numbers: number[]): number {
   const initialValue = 0
-  console.log(numbers)
   const total = numbers.reduce(
     (accumulator: number, current: number) => accumulator + current,
     initialValue

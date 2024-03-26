@@ -1,7 +1,8 @@
 .btn-analise {
   width: 206px;
   height: 54px;
-  background-color: #1e1e1e;
+  background-color: rgb(29, 29, 29, 80%);
+  border: 1px solid rgba(128, 128, 128, 0.479);
   color: #b4b4b4;
   border-radius: 50px;
   display: flex;
@@ -11,6 +12,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
 
   i {
