@@ -18,8 +18,14 @@ btnAdd?.addEventListener('click', (e) => {
 btnAnalise?.addEventListener('click', () => {
   if (msgList == null) return
 
-  analiseNumbers(numberList, sum(numberList), middle(numberList, sum))
-  showHideMessagesList(msgList, 'hidde', 'show')
+  btnAnalise.classList.add('btnLoading')
+
+  setTimeout(() => {
+    analiseNumbers(numberList, sum(numberList), middle(numberList, sum))
+    showHideMessagesList(msgList, 'hidde', 'show')
+
+    btnAnalise.classList.remove('btnLoading')
+  }, 4000)
 })
 
 btnClose?.addEventListener('click', () => {

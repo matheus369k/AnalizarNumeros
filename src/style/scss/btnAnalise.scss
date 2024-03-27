@@ -1,3 +1,15 @@
+@keyframes btn-loading {
+  33% {
+    content: "Analisando.";
+  }
+  66% {
+    content: "Analisando..";
+  }
+  100% {
+    content: "Analisando...";
+  }
+}
+
 .btn-analise {
   width: 206px;
   height: 54px;
@@ -17,20 +29,20 @@
   cursor: pointer;
 
   i {
-    margin-bottom: -3px;
+    margin-bottom: -4px;
     margin-right: 2px;
     width: max-content;
     background-color: transparent;
 
     svg {
       width: max-content;
-      height: 25px;
+      height: 20px;
 
-      path{
+      path {
         fill: #b4b4b4;
       }
 
-      circle{
+      circle {
         stroke: #b4b4b4;
       }
 
@@ -43,5 +55,17 @@
   span {
     font-size: 20px;
     font-weight: normal;
+  }
+}
+
+.btn-analise.btnLoading {
+  i::before {
+    content: "Analisando";
+    animation: btn-loading 2s alternate infinite;
+  }
+
+  span,
+  svg {
+    display: none;
   }
 }

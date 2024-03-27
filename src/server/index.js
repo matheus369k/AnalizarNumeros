@@ -14,8 +14,12 @@ btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click',
 btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListener('click', function () {
     if (msgList == null)
         return;
-    analiseNumbers(numberList, sum(numberList), middle(numberList, sum));
-    showHideMessagesList(msgList, 'hidde', 'show');
+    btnAnalise.classList.add('btnLoading');
+    setTimeout(function () {
+        analiseNumbers(numberList, sum(numberList), middle(numberList, sum));
+        showHideMessagesList(msgList, 'hidde', 'show');
+        btnAnalise.classList.remove('btnLoading');
+    }, 4000);
 });
 btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', function () {
     if (msgList == null)
