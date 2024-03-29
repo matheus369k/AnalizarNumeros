@@ -8,34 +8,52 @@
   justify-content: space-between;
   align-items: center;
 
-  ul {
+  div {
+    position: relative;
     width: 80%;
-    display: flex;
-    justify-content: center;
-    column-gap: 18px;
-    color: white;
-    font-weight: bold;
+    height: 40px;
     overflow: hidden;
+      
+    &::-webkit-scrollbar{
+    display: none;
+    }
 
-    li {
-      font-size: 2rem;
-      user-select: none;
-      -webkit-user-select: none;
+    ul {
+      color: white;
+      display: flex;
+      justify-content: center;
+      column-gap: 18px;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      width: max-content;
+      transition: all 1s ease-in-out;
 
-      &::after {
-        content: "-";
-        margin-left: 18px;
-      }
-
-      &:nth-last-child(1) {
+      li {
+        font-size: 2rem;
+        user-select: none;
+        -webkit-user-select: none;
+  
         &::after {
-          content: "";
+          content: "-";
+          margin-left: 18px;
+        }
+  
+        &:nth-last-child(1) {
+          &::after {
+            content: "";
+          }
         }
       }
     }
+
   }
 
   button {
+    visibility: visible;
     background: transparent;
     height: 40px;
     text-align: center;
@@ -47,5 +65,9 @@
       width: 40px;
       fill: white;
     }
+  }
+
+  button.hidde{
+    visibility: hidden;
   }
 }

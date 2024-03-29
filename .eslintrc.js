@@ -22,5 +22,7 @@ module.exports = {
         "sourceType": "commonjs"
     },
     "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"]
     }
 }

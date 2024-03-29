@@ -62,28 +62,43 @@ texturea:focus, input:focus, select:focus {
   justify-content: space-between;
   align-items: center;
 }
-.numbers-container ul {
+.numbers-container div {
+  position: relative;
   width: 80%;
+  height: 40px;
+  overflow: hidden;
+}
+.numbers-container div::-webkit-scrollbar {
+  display: none;
+}
+.numbers-container div ul {
+  color: white;
   display: flex;
   justify-content: center;
   column-gap: 18px;
-  color: white;
   font-weight: bold;
-  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: max-content;
+  transition: all 1s ease-in-out;
 }
-.numbers-container ul li {
+.numbers-container div ul li {
   font-size: 2rem;
   user-select: none;
   -webkit-user-select: none;
 }
-.numbers-container ul li::after {
+.numbers-container div ul li::after {
   content: "-";
   margin-left: 18px;
 }
-.numbers-container ul li:nth-last-child(1)::after {
+.numbers-container div ul li:nth-last-child(1)::after {
   content: "";
 }
 .numbers-container button {
+  visibility: visible;
   background: transparent;
   height: 40px;
   text-align: center;
@@ -94,6 +109,9 @@ texturea:focus, input:focus, select:focus {
   height: max-content;
   width: 40px;
   fill: white;
+}
+.numbers-container button.hidde {
+  visibility: hidden;
 }
 
 @keyframes btn-loading {
