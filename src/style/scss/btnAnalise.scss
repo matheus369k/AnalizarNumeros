@@ -60,7 +60,10 @@
 
 .btn-analise.btnLoading {
   i::before {
+    font-size: 16px;
+    font-weight: normal;
     content: "Analisando";
+    cursor: progress;
     animation: btn-loading 2s alternate infinite;
   }
 

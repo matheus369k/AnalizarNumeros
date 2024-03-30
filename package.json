@@ -3,10 +3,10 @@
   "homepage": "https://matheus369k.github.io/analizar-numeros/",
   "description": "<<<<<<< HEAD\r # Analizar Numeros\r ***\r Esse projeto tem como objetivo a interação com o cliente, sendo adicionado __um ou mais numero__ de __0__ a __100__, __não podendo ser repetido__. No final mostrado a __quantidade de numeros digitandos__, o __maior numero__, o __menor valor__, a __soma de todos os valores__ e a __média__ do total.",
   "version": "1.0.0",
-  "type": "commonjs",
-  "main": "./src/server/js/index.js",
+  "type": "module",
+  "main": "./src/server/index.js",
   "scripts": {
-    "dev:tsc": "tsc --watch ./src/server/index.ts",
+    "dev:tsc": "tsc --watch ./src/server/index.ts ./src/server/index.js",
     "dev:sass": "sass --watch src/style/scss/index.scss src/style/index.css",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

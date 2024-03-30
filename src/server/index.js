@@ -6,6 +6,8 @@ var btnClose = document.getElementById("btn-close");
 var btnsNextPrev = document.querySelectorAll("#numbers-container>button");
 var containerListNumbers = document.querySelector("#numbers-container>div");
 var listNumbers = document.querySelector("#numbers-container>div>ul");
+var listOfRules = document.querySelectorAll("#rule>li");
+var btnRules = document.getElementById("btn-rules");
 var numberList = [];
 btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click", function (e) {
     var _a;
@@ -25,6 +27,8 @@ btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click",
 });
 btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListener("click", function () {
     if (msgList == null)
+        return;
+    if (numberList.length === 0)
         return;
     btnAnalise.classList.add("btnLoading");
     setTimeout(function () {
@@ -54,47 +58,44 @@ btnsNextPrev.forEach(function (btn) {
             var btnId = btn.getAttribute("id");
             var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
             var scrollbarPosition = Number((_a = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.getAttribute("style")) === null || _a === void 0 ? void 0 : _a.split(": ")[1].split("px")[0]) || 0;
-            /*
-                  console.log(scrollbarPosition);
-                  console.log(widthScroll);
-                  console.log(widthContainer); */
             if (typeof scrollbarPosition === "number" &&
                 typeof widthScroll === "number") {
                 if (btnId === "btn-prevent") {
                     listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: ".concat(scrollbarPosition + 100, "px"));
-                    /* listNumbers?.scrollTo({
-                      top: 0,
-                      left: scrollbarPosition - 100,
-                      behavior: "smooth"
-                    }) */
                 }
                 if (btnId === "btn-next") {
                     listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: ".concat(scrollbarPosition - 100, "px"));
-                    /* listNumbers?.scrollTo({
-                      top: 0,
-                      left: scrollbarPosition + 100,
-                      behavior: "smooth"
-                    }) */
                 }
             }
             detectScrollPosition();
         });
     }
 });
-listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.addEventListener("scroll", function () { detectScrollPosition(); });
+listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.addEventListener("scroll", function () { return detectScrollPosition(); });
+input === null || input === void 0 ? void 0 : input.addEventListener("input", function (e) {
+    verificationRules(e);
+});
+btnRules === null || btnRules === void 0 ? void 0 : btnRules.addEventListener("click", function () {
+    btnRules.parentNode.classList.toggle("showHider");
+});
+function addRuleConfirm(id) {
+    listOfRules.forEach(function (element) {
+        if (element.getAttribute("id") === id) {
+            element.classList.add("rule-confirm");
+        }
+    });
+}
 function toAdd(propsNumberList, input) {
     var inputValue = parseInt(input.value);
     var numbersContainer = document.querySelector("#numbers-container>div>ul");
     var elementLi = document.createElement("li");
     var verification = propsNumberList.indexOf(inputValue);
-    if (inputValue < 1 || inputValue > 100) {
-        alert("ERRO type it a number in between 1 and 100");
+    if (isNaN(inputValue))
         return;
-    }
-    if (verification > 0 || numbersContainer == null) {
-        alert("Number ".concat(inputValue, " exist at on list or invalid!"));
+    if (inputValue < 1 || inputValue > 100)
         return;
-    }
+    if (verification > 0 || numbersContainer == null)
+        return;
     propsNumberList.push(inputValue);
     sortList(propsNumberList);
     elementLi.textContent = "".concat(inputValue);
@@ -109,10 +110,8 @@ function analiseNumbers(propsNumberList, propsSum, propsAverage) {
         sum: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>A soma de todos os numeros e <span>".concat(propsSum, "</span></p>"),
         average: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>A media de todos os numeros e <span>".concat(propsAverage.toFixed(1), "</span></p>")
     };
-    if (inAll === 0) {
-        alert("add one value!");
+    if (inAll === 0)
         return;
-    }
     for (var indChil = 0; indChil < Object.values(messages).length; indChil++) {
         var messageElement = document.getElementById("msg-".concat(Object.keys(messages)[indChil]));
         if (messageElement == null)
@@ -169,5 +168,38 @@ function detectScrollPosition() {
         if (scrollbarPosition < 0) {
             showHideElement(btnsNextPrev[0], "hidde", "show");
         }
+    }
+}
+function verificationRules(e) {
+    var ruleIsValid = document.getElementById("is-valid");
+    var ruleNoNegative = document.getElementById("no-negative");
+    var ruleNoRepeat = document.getElementById("no-repeat");
+    var ruleOneAndOneHundred = document.getElementById("one-and-onehundred");
+    var inputValue = e.currentTarget.value;
+    var existNumber = numberList.includes(Number(inputValue));
+    if (isNaN(parseInt(inputValue)) ||
+        isNaN(parseFloat(inputValue))) {
+        ruleIsValid === null || ruleIsValid === void 0 ? void 0 : ruleIsValid.classList.remove("rule-confirm");
+    }
+    else {
+        addRuleConfirm("is-valid");
+    }
+    if (inputValue < 0) {
+        ruleNoNegative === null || ruleNoNegative === void 0 ? void 0 : ruleNoNegative.classList.remove("rule-confirm");
+    }
+    else {
+        addRuleConfirm("no-negative");
+    }
+    if (existNumber) {
+        ruleNoRepeat === null || ruleNoRepeat === void 0 ? void 0 : ruleNoRepeat.classList.remove("rule-confirm");
+    }
+    else {
+        addRuleConfirm("no-repeat");
+    }
+    if (inputValue < 0 || inputValue > 100) {
+        ruleOneAndOneHundred === null || ruleOneAndOneHundred === void 0 ? void 0 : ruleOneAndOneHundred.classList.remove("rule-confirm");
+    }
+    else {
+        addRuleConfirm("one-and-onehundred");
     }
 }

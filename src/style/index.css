@@ -168,7 +168,10 @@ texturea:focus, input:focus, select:focus {
 }
 
 .btn-analise.btnLoading i::before {
+  font-size: 16px;
+  font-weight: normal;
   content: "Analisando";
+  cursor: progress;
   animation: btn-loading 2s alternate infinite;
 }
 .btn-analise.btnLoading span,
@@ -298,6 +301,100 @@ texturea:focus, input:focus, select:focus {
 
 .msg-container.hidde {
   display: none;
+}
+
+.rules-container {
+  position: absolute;
+  left: 0;
+  top: -51px;
+  height: 80px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  transition: all 0.4s ease-in-out;
+}
+.rules-container .rule-list {
+  width: 100%;
+  height: 50px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 50px;
+  background-color: rgba(29, 29, 29, 0.8);
+  border-bottom: 1px solid hsla(0, 0%, 50%, 0.3);
+}
+.rules-container .rule-list li {
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  column-gap: 5px;
+}
+.rules-container .rule-list li i {
+  visibility: hidden;
+  margin-top: -3px;
+}
+.rules-container .rule-list li i svg,
+.rules-container .rule-list li i path {
+  height: 20px;
+  width: 20px;
+  fill: green;
+}
+.rules-container .rule-list li p {
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px rgb(0, 0, 0);
+}
+.rules-container .rule-list .rule-confirm i {
+  visibility: visible;
+}
+.rules-container .rule-list .rule-confirm p {
+  color: green;
+}
+.rules-container .btn-show-hidder-rules {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-radius: 0 0 10px 0;
+  background-color: rgba(29, 29, 29, 0.8);
+  padding-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.247);
+  width: 150px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.rules-container .btn-show-hidder-rules::after {
+  content: "";
+  width: 150px;
+  height: 30px;
+  border-radius: 0 0 10px 0;
+  border: 1px solid hsla(0, 0%, 50%, 0.3);
+  border-top: none;
+  border-left: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.rules-container .btn-show-hidder-rules svg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -2px;
+  margin-right: 2px;
+  stroke: none;
+}
+.rules-container .btn-show-hidder-rules svg path {
+  stroke: white;
+}
+.rules-container .btn-show-hidder-rules span {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.rules-container.showHider {
+  top: 0;
 }
 
 body {

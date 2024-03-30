@@ -6,6 +6,8 @@ const btnClose = document.getElementById("btn-close");
 const btnsNextPrev = document.querySelectorAll("#numbers-container>button");
 const containerListNumbers = document.querySelector("#numbers-container>div");
 const listNumbers = document.querySelector("#numbers-container>div>ul");
+const listOfRules = document.querySelectorAll("#rule>li");
+const btnRules = document.getElementById("btn-rules");
 const numberList: number[] = [];
 
 btnAdd?.addEventListener("click", (e) => {
@@ -28,15 +30,17 @@ btnAdd?.addEventListener("click", (e) => {
   toAdd(numberList, input);
 
   input.value = "";
-});
+})
 
 btnAnalise?.addEventListener("click", () => {
   if (msgList == null) return;
+  if (numberList.length === 0) return;
 
   btnAnalise.classList.add("btnLoading");
 
   setTimeout(() => {
     analiseNumbers(numberList, sum(numberList), middle(numberList, sum));
+
     showHideElement(msgList, "hidde", "show");
 
     btnAnalise.classList.remove("btnLoading");
@@ -47,13 +51,13 @@ btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hidde");
-});
+})
 
 btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hidde");
-});
+})
 
 btnsNextPrev.forEach((btn) => {
   const widthScroll = listNumbers?.scrollWidth;
@@ -70,10 +74,6 @@ btnsNextPrev.forEach((btn) => {
         Number(
           listNumbers?.getAttribute("style")?.split(": ")[1].split("px")[0]
         ) || 0;
-/* 
-      console.log(scrollbarPosition);
-      console.log(widthScroll);
-      console.log(widthContainer); */
 
       if (
         typeof scrollbarPosition === "number" &&
@@ -84,30 +84,36 @@ btnsNextPrev.forEach((btn) => {
             "style",
             `left: ${scrollbarPosition + 100}px`
           );
-          /* listNumbers?.scrollTo({
-            top: 0,
-            left: scrollbarPosition - 100,
-            behavior: "smooth"
-          }) */
         }
         if (btnId === "btn-next") {
           listNumbers?.setAttribute(
             "style",
             `left: ${scrollbarPosition - 100}px`
           );
-          /* listNumbers?.scrollTo({
-            top: 0,
-            left: scrollbarPosition + 100,
-            behavior: "smooth"
-          }) */
         }
       }
       detectScrollPosition();
     })
   }
-});
+})
 
-listNumbers?.addEventListener("scroll", () => { detectScrollPosition(); })
+listNumbers?.addEventListener("scroll", () => detectScrollPosition())
+
+input?.addEventListener("input", (e) => {
+  verificationRules(e);
+})
+
+btnRules?.addEventListener("click", () => {
+  btnRules.parentNode.classList.toggle("showHider");
+})
+
+function addRuleConfirm (id: string): void {
+  listOfRules.forEach(element => {
+    if (element.getAttribute("id") === id) {
+      element.classList.add("rule-confirm")
+    }
+  });
+}
 
 function toAdd (propsNumberList: number[], input: HTMLElement): void {
   const inputValue: number = parseInt(input.value);
@@ -116,15 +122,11 @@ function toAdd (propsNumberList: number[], input: HTMLElement): void {
 
   const verification = propsNumberList.indexOf(inputValue);
 
-  if (inputValue < 1 || inputValue > 100) {
-    alert("ERRO type it a number in between 1 and 100");
-    return;
-  }
+  if (isNaN(inputValue)) return;
 
-  if (verification > 0 || numbersContainer == null) {
-    alert(`Number ${inputValue} exist at on list or invalid!`);
-    return
-  }
+  if (inputValue < 1 || inputValue > 100) return;
+
+  if (verification > 0 || numbersContainer == null) return;
 
   propsNumberList.push(inputValue);
   sortList(propsNumberList);
@@ -171,10 +173,7 @@ function analiseNumbers (
     )}</span></p>`
   };
 
-  if (inAll === 0) {
-    alert("add one value!");
-    return;
-  }
+  if (inAll === 0) return;
 
   for (let indChil = 0; indChil < Object.values(messages).length; indChil++) {
     const messageElement = document.getElementById(
@@ -223,7 +222,7 @@ function hasScollBar (
   });
 }
 
-function detectScrollPosition () {
+function detectScrollPosition (): void {
   const widthScroll = listNumbers?.clientWidth;
   const widthContainer = containerListNumbers?.clientWidth;
   const scrollbarPosition =
@@ -256,5 +255,39 @@ function detectScrollPosition () {
     if (scrollbarPosition < 0) {
       showHideElement(btnsNextPrev[0], "hidde", "show");
     }
+  }
+}
+
+function verificationRules(e: Event): void {
+  const ruleIsValid = document.getElementById("is-valid");
+  const ruleNoNegative = document.getElementById("no-negative");
+  const ruleNoRepeat = document.getElementById("no-repeat");
+  const ruleOneAndOneHundred = document.getElementById("one-and-onehundred");
+  const inputValue = e.currentTarget.value;
+  const existNumber = numberList.includes(Number(inputValue));
+
+  if (isNaN(parseInt(inputValue)) ||
+    isNaN(parseFloat(inputValue))) {
+    ruleIsValid?.classList.remove("rule-confirm");
+  } else {
+    addRuleConfirm("is-valid");
+  }
+
+  if (inputValue < 0) {
+    ruleNoNegative?.classList.remove("rule-confirm");
+  } else {
+    addRuleConfirm("no-negative");
+  }
+
+  if (existNumber) {
+    ruleNoRepeat?.classList.remove("rule-confirm");
+  } else {
+    addRuleConfirm("no-repeat");
+  }
+
+  if (inputValue < 0 || inputValue > 100) {
+    ruleOneAndOneHundred?.classList.remove("rule-confirm");
+  } else {
+    addRuleConfirm("one-and-onehundred");
   }
 }

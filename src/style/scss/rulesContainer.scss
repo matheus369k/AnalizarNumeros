@@ -1,0 +1,107 @@
+.rules-container {
+  position: absolute;
+  left: 0;
+  top: -51px;
+  height: 80px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  transition: all .4s ease-in-out;
+
+  .rule-list {
+    width: 100%;
+    height: 50px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+    background-color: rgb(29, 29, 29, 80%);
+    border-bottom: 1px solid hsl(0, 0%, 50%, 30%);
+
+    li {
+      user-select: none;
+      -webkit-user-select: none;
+      display: flex;
+      column-gap: 5px;
+
+      i {
+        visibility: hidden;
+        margin-top: -3px;
+
+        svg,
+        path {
+          height: 20px;
+          width: 20px;
+          fill: green;
+        }
+      }
+
+      p {
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px rgb(0, 0, 0);
+      }
+    }
+
+    .rule-confirm {
+      i {
+        visibility: visible;
+      }
+
+      p {
+        color: green;
+      }
+    }
+  }
+
+  .btn-show-hidder-rules {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 0 0 10px 0;
+    background-color: rgb(29, 29, 29, 80%);
+    padding-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.247);
+    width: 150px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    
+    &::after {
+      content: '';
+      width: 150px;
+      height: 30px;
+      border-radius: 0 0 10px 0;
+      border: 1px solid hsl(0, 0%, 50%, 30%);
+      border-top: none;
+      border-left: none;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-bottom: -2px;
+      margin-right: 2px;
+      stroke: none;
+
+      path {
+        stroke: white;
+      }
+    }
+
+    span {
+      font-size: 0.8rem;
+      color: gray;
+    }
+  }
+}
+
+.rules-container.showHider {
+  top: 0;
+}
