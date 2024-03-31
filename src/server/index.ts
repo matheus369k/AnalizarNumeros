@@ -12,7 +12,7 @@ const numberList: number[] = [];
 btnAdd?.addEventListener("click", (e) => {
   const widthScroll = listNumbers?.scrollWidth;
   const widthContainer = listNumbers?.clientWidth;
-  const scrollbarPosition = listNumbers?.scrollLeft
+  const scrollbarPosition = listNumbers?.scrollLeft;
   e?.preventDefault();
 
   if (input == null || scrollbarPosition === undefined) return;
@@ -42,7 +42,7 @@ btnAnalise?.addEventListener("click", () => {
 
     btnAnalise.classList.remove("btnLoading");
   }, 4000);
-  
+
   input.value = "";
   removeRuleConfirm("", "all");
 });
@@ -54,16 +54,25 @@ btnClose?.addEventListener("click", () => {
 });
 
 btnClose?.addEventListener("click", () => {
+  const numbersChildren = listNumbers?.childElementCount;
+  const elementsChildren = listNumbers?.childNodes
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hidde");
+
+  if (numbersChildren === undefined || elementsChildren === undefined) return;
+
+  for (let count = numbersChildren - 1; count > -1; count--) {
+    elementsChildren[count].remove()
+  }
 });
 
 btnsNextPrev.forEach((btn) => {
   const widthScroll = listNumbers?.scrollWidth;
   const widthContainer = listNumbers?.clientWidth;
 
-  if (typeof widthScroll !== "number" || typeof widthContainer !== "number") return;
+  if (typeof widthScroll !== "number" || typeof widthContainer !== "number")
+    return;
 
   detectScrollPosition();
   hasScollBar(widthContainer, widthScroll);
@@ -81,7 +90,7 @@ btnsNextPrev.forEach((btn) => {
         behavior: "smooth",
       });
     }
-    
+
     if (btnId === "btn-next") {
       listNumbers?.scrollTo({
         top: 0,
@@ -226,15 +235,11 @@ function detectScrollPosition(): void {
   const widthContainer = listNumbers?.clientWidth;
   const scrollbarPosition = listNumbers?.scrollLeft;
 
-  console.log(widthScroll)
-  console.log(widthContainer)
-  console.log(scrollbarPosition)
   if (
     typeof widthScroll === "number" &&
     typeof widthContainer === "number" &&
     typeof scrollbarPosition === "number"
   ) {
-
     if (scrollbarPosition + widthContainer === widthScroll) {
       showHideElement(btnsNextPrev[1], "show", "hidde");
     }

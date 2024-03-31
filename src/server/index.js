@@ -44,9 +44,16 @@ btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("c
     showHideElement(msgList, "show", "hidde");
 });
 btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("click", function () {
+    var numbersChildren = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.childElementCount;
+    var elementsChildren = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.childNodes;
     if (msgList == null)
         return;
     showHideElement(msgList, "show", "hidde");
+    if (numbersChildren === undefined || elementsChildren === undefined)
+        return;
+    for (var count = numbersChildren - 1; count > -1; count--) {
+        elementsChildren[count].remove();
+    }
 });
 btnsNextPrev.forEach(function (btn) {
     var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
@@ -153,9 +160,6 @@ function detectScrollPosition() {
     var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
     var widthContainer = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
     var scrollbarPosition = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollLeft;
-    console.log(widthScroll);
-    console.log(widthContainer);
-    console.log(scrollbarPosition);
     if (typeof widthScroll === "number" &&
         typeof widthContainer === "number" &&
         typeof scrollbarPosition === "number") {
