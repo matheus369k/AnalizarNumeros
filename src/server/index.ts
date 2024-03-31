@@ -4,22 +4,18 @@ const btnAdd = document.getElementById("submit");
 const input = document.getElementById("get-number");
 const btnClose = document.getElementById("btn-close");
 const btnsNextPrev = document.querySelectorAll("#numbers-container>button");
-const containerListNumbers = document.querySelector("#numbers-container>div");
-const listNumbers = document.querySelector("#numbers-container>div>ul");
+const listNumbers = document.querySelector("#numbers-container>ul");
 const listOfRules = document.querySelectorAll("#rule>li");
 const btnRules = document.getElementById("btn-rules");
 const numberList: number[] = [];
 
 btnAdd?.addEventListener("click", (e) => {
-  const widthScroll = listNumbers?.clientWidth;
-  const widthContainer = containerListNumbers?.clientWidth;
-  const scrollbarPosition =
-    Math.abs(
-      Number(listNumbers?.getAttribute("style")?.split(": ")[1].split("px")[0])
-    ) || 0;
+  const widthScroll = listNumbers?.scrollWidth;
+  const widthContainer = listNumbers?.clientWidth;
+  const scrollbarPosition = listNumbers?.scrollLeft
   e?.preventDefault();
 
-  if (input == null) return;
+  if (input == null || scrollbarPosition === undefined) return;
 
   if (typeof widthContainer === "number" && typeof widthScroll === "number") {
     hasScollBar(widthContainer, widthScroll);
@@ -28,9 +24,10 @@ btnAdd?.addEventListener("click", (e) => {
   if (scrollbarPosition <= 0) showHideElement(btnsNextPrev[0], "show", "hidde");
 
   toAdd(numberList, input);
+  removeRuleConfirm("", "all");
 
   input.value = "";
-})
+});
 
 btnAnalise?.addEventListener("click", () => {
   if (msgList == null) return;
@@ -45,79 +42,81 @@ btnAnalise?.addEventListener("click", () => {
 
     btnAnalise.classList.remove("btnLoading");
   }, 4000);
-})
+  
+  input.value = "";
+  removeRuleConfirm("", "all");
+});
 
 btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hidde");
-})
+});
 
 btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hidde");
-})
+});
 
 btnsNextPrev.forEach((btn) => {
   const widthScroll = listNumbers?.scrollWidth;
-  const widthContainer = containerListNumbers?.clientWidth;
+  const widthContainer = listNumbers?.clientWidth;
 
-  if (typeof widthScroll === "number" && typeof widthContainer === "number") {
+  if (typeof widthScroll !== "number" || typeof widthContainer !== "number") return;
+
+  detectScrollPosition();
+  hasScollBar(widthContainer, widthScroll);
+
+  btn.addEventListener("click", () => {
+    const btnId = btn.getAttribute("id");
+    const scrollbarPosition = listNumbers?.scrollLeft;
+
+    if (typeof scrollbarPosition !== "number") return;
+
+    if (btnId === "btn-prevent") {
+      listNumbers?.scrollTo({
+        top: 0,
+        left: scrollbarPosition - 100,
+        behavior: "smooth",
+      });
+    }
+    
+    if (btnId === "btn-next") {
+      listNumbers?.scrollTo({
+        top: 0,
+        left: scrollbarPosition + 100,
+        behavior: "smooth",
+      });
+    }
+
     detectScrollPosition();
-    hasScollBar(widthContainer, widthScroll);
+  });
+});
 
-    btn.addEventListener("click", () => {
-      const btnId = btn.getAttribute("id");
-      const widthScroll = listNumbers?.scrollWidth;
-      const scrollbarPosition =
-        Number(
-          listNumbers?.getAttribute("style")?.split(": ")[1].split("px")[0]
-        ) || 0;
-
-      if (
-        typeof scrollbarPosition === "number" &&
-        typeof widthScroll === "number"
-      ) {
-        if (btnId === "btn-prevent") {
-          listNumbers?.setAttribute(
-            "style",
-            `left: ${scrollbarPosition + 100}px`
-          );
-        }
-        if (btnId === "btn-next") {
-          listNumbers?.setAttribute(
-            "style",
-            `left: ${scrollbarPosition - 100}px`
-          );
-        }
-      }
-      detectScrollPosition();
-    })
-  }
-})
-
-listNumbers?.addEventListener("scroll", () => detectScrollPosition())
+listNumbers?.addEventListener("scroll", () => {
+  detectScrollPosition();
+});
 
 input?.addEventListener("input", (e) => {
-  verificationRules(e);
-})
+  verificationRules(e.currentTarget.value);
+});
 
 btnRules?.addEventListener("click", () => {
   btnRules.parentNode.classList.toggle("showHider");
-})
+});
 
-function addRuleConfirm (id: string): void {
-  listOfRules.forEach(element => {
+function addRuleConfirm(id: string): void {
+  listOfRules.forEach((element) => {
     if (element.getAttribute("id") === id) {
-      element.classList.add("rule-confirm")
+      element.classList.add("rule-confirm");
     }
   });
 }
 
-function toAdd (propsNumberList: number[], input: HTMLElement): void {
+function toAdd(propsNumberList: number[], input: HTMLElement): void {
   const inputValue: number = parseInt(input.value);
-  const numbersContainer = document.querySelector("#numbers-container>div>ul");
+  const numbersContainer = document.querySelector("#numbers-container>ul");
   const elementLi = document.createElement("li");
 
   const verification = propsNumberList.indexOf(inputValue);
@@ -135,7 +134,7 @@ function toAdd (propsNumberList: number[], input: HTMLElement): void {
   numbersContainer.appendChild(elementLi);
 }
 
-function analiseNumbers (
+function analiseNumbers(
   propsNumberList: number[],
   propsSum: number,
   propsAverage: number
@@ -170,7 +169,7 @@ function analiseNumbers (
     <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
     </svg><p>A media de todos os numeros e <span>${propsAverage.toFixed(
       1
-    )}</span></p>`
+    )}</span></p>`,
   };
 
   if (inAll === 0) return;
@@ -186,7 +185,7 @@ function analiseNumbers (
   }
 }
 
-function showHideElement (
+function showHideElement(
   propsMsgList: Element,
   propsCurrentClass: string,
   propsNewClass: string
@@ -194,15 +193,15 @@ function showHideElement (
   propsMsgList.classList.replace(propsCurrentClass, propsNewClass);
 }
 
-function sortList (list: number[]): number[] {
+function sortList(list: number[]): number[] {
   return list.sort((prev: number, next: number) => prev - next);
 }
 
-function middle (numbers: number[], sum: (numbers: number[]) => number): number {
+function middle(numbers: number[], sum: (numbers: number[]) => number): number {
   return sum(numbers) / numbers.length;
 }
 
-function sum (numbers: number[]): number {
+function sum(numbers: number[]): number {
   const initialValue = 0;
   const total = numbers.reduce(
     (accumulator: number, current: number) => accumulator + current,
@@ -211,83 +210,85 @@ function sum (numbers: number[]): number {
   return total;
 }
 
-function hasScollBar (
+function hasScollBar(
   propsWidthContainer: number,
   propsWidthScroll: number
 ): void {
   btnsNextPrev.forEach((btn) => {
     showHideElement(btn, "show", "hidde");
-    if (propsWidthScroll < propsWidthContainer) return;
+    if (propsWidthScroll === propsWidthContainer) return;
     showHideElement(btn, "hidde", "show");
   });
 }
 
-function detectScrollPosition (): void {
-  const widthScroll = listNumbers?.clientWidth;
-  const widthContainer = containerListNumbers?.clientWidth;
-  const scrollbarPosition =
-      Number(listNumbers?.getAttribute("style")?.split(": ")[1].split("px")[0])
-    || 0;
+function detectScrollPosition(): void {
+  const widthScroll = listNumbers?.scrollWidth;
+  const widthContainer = listNumbers?.clientWidth;
+  const scrollbarPosition = listNumbers?.scrollLeft;
+
+  console.log(widthScroll)
+  console.log(widthContainer)
+  console.log(scrollbarPosition)
   if (
     typeof widthScroll === "number" &&
     typeof widthContainer === "number" &&
     typeof scrollbarPosition === "number"
   ) {
 
-    if (widthContainer > widthScroll) return;
-
-    if (Math.abs(scrollbarPosition) + widthContainer > widthScroll) {
+    if (scrollbarPosition + widthContainer === widthScroll) {
       showHideElement(btnsNextPrev[1], "show", "hidde");
-      showHideElement(btnsNextPrev[0], "hidde", "show");
-      listNumbers?.setAttribute("style", `left: ${widthContainer - widthScroll}px`);
     }
 
-    if (Math.abs(scrollbarPosition) + widthContainer < widthScroll) {
+    if (scrollbarPosition + widthContainer < widthScroll) {
       showHideElement(btnsNextPrev[1], "hidde", "show");
+    }
+
+    if (scrollbarPosition === 0) {
       showHideElement(btnsNextPrev[0], "show", "hidde");
     }
 
-    if (scrollbarPosition > 1) {
-      showHideElement(btnsNextPrev[0], "show", "hidde");
-      listNumbers?.setAttribute("style", "left: 0px");
-    }
-
-    if (scrollbarPosition < 0) {
+    if (scrollbarPosition > 0) {
       showHideElement(btnsNextPrev[0], "hidde", "show");
     }
   }
 }
 
-function verificationRules(e: Event): void {
-  const ruleIsValid = document.getElementById("is-valid");
-  const ruleNoNegative = document.getElementById("no-negative");
-  const ruleNoRepeat = document.getElementById("no-repeat");
-  const ruleOneAndOneHundred = document.getElementById("one-and-onehundred");
-  const inputValue = e.currentTarget.value;
+function verificationRules(inputValue: string): void {
   const existNumber = numberList.includes(Number(inputValue));
 
-  if (isNaN(parseInt(inputValue)) ||
-    isNaN(parseFloat(inputValue))) {
-    ruleIsValid?.classList.remove("rule-confirm");
+  if (isNaN(parseInt(inputValue)) || isNaN(parseFloat(inputValue))) {
+    removeRuleConfirm("is-valid", "single");
   } else {
     addRuleConfirm("is-valid");
   }
 
-  if (inputValue < 0) {
-    ruleNoNegative?.classList.remove("rule-confirm");
+  if (Number(inputValue) < 0) {
+    removeRuleConfirm("no-negative", "single");
   } else {
     addRuleConfirm("no-negative");
   }
 
   if (existNumber) {
-    ruleNoRepeat?.classList.remove("rule-confirm");
+    removeRuleConfirm("no-repeat", "single");
   } else {
     addRuleConfirm("no-repeat");
   }
 
-  if (inputValue < 0 || inputValue > 100) {
-    ruleOneAndOneHundred?.classList.remove("rule-confirm");
+  if (Number(inputValue) < 0 || Number(inputValue) > 100) {
+    removeRuleConfirm("one-and-onehundred", "single");
   } else {
     addRuleConfirm("one-and-onehundred");
   }
+}
+
+function removeRuleConfirm(id: string, option: string) {
+  listOfRules.forEach((element) => {
+    if (option === "single" && id === element.id) {
+      element.classList.remove("rule-confirm");
+    }
+
+    if (option === "all") {
+      element.classList.remove("rule-confirm");
+    }
+  });
 }

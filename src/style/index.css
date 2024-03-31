@@ -55,6 +55,7 @@ texturea:focus, input:focus, select:focus {
 .numbers-container {
   position: absolute;
   bottom: 0;
+  left: 0;
   background-color: rgba(29, 29, 29, 0.8);
   height: 55px;
   width: 100%;
@@ -62,39 +63,33 @@ texturea:focus, input:focus, select:focus {
   justify-content: space-between;
   align-items: center;
 }
-.numbers-container div {
-  position: relative;
-  width: 80%;
+.numbers-container ul {
+  width: 85%;
   height: 40px;
-  overflow: hidden;
-}
-.numbers-container div::-webkit-scrollbar {
-  display: none;
-}
-.numbers-container div ul {
   color: white;
   display: flex;
-  justify-content: center;
   column-gap: 18px;
   font-weight: bold;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 100%;
-  width: max-content;
-  transition: all 1s ease-in-out;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
 }
-.numbers-container div ul li {
+.numbers-container ul::-webkit-scrollbar {
+  display: none;
+}
+.numbers-container ul li {
   font-size: 2rem;
   user-select: none;
   -webkit-user-select: none;
+  scroll-snap-align: center;
+  scroll-behavior: smooth;
+  scroll-snap-stop: always;
 }
-.numbers-container div ul li::after {
+.numbers-container ul li::after {
   content: "-";
   margin-left: 18px;
 }
-.numbers-container div ul li:nth-last-child(1)::after {
+.numbers-container ul li:nth-last-child(1)::after {
   content: "";
 }
 .numbers-container button {

@@ -4,18 +4,16 @@ var btnAdd = document.getElementById("submit");
 var input = document.getElementById("get-number");
 var btnClose = document.getElementById("btn-close");
 var btnsNextPrev = document.querySelectorAll("#numbers-container>button");
-var containerListNumbers = document.querySelector("#numbers-container>div");
-var listNumbers = document.querySelector("#numbers-container>div>ul");
+var listNumbers = document.querySelector("#numbers-container>ul");
 var listOfRules = document.querySelectorAll("#rule>li");
 var btnRules = document.getElementById("btn-rules");
 var numberList = [];
 btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click", function (e) {
-    var _a;
-    var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
-    var widthContainer = containerListNumbers === null || containerListNumbers === void 0 ? void 0 : containerListNumbers.clientWidth;
-    var scrollbarPosition = Math.abs(Number((_a = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.getAttribute("style")) === null || _a === void 0 ? void 0 : _a.split(": ")[1].split("px")[0])) || 0;
+    var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
+    var widthContainer = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
+    var scrollbarPosition = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollLeft;
     e === null || e === void 0 ? void 0 : e.preventDefault();
-    if (input == null)
+    if (input == null || scrollbarPosition === undefined)
         return;
     if (typeof widthContainer === "number" && typeof widthScroll === "number") {
         hasScollBar(widthContainer, widthScroll);
@@ -23,6 +21,7 @@ btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click",
     if (scrollbarPosition <= 0)
         showHideElement(btnsNextPrev[0], "show", "hidde");
     toAdd(numberList, input);
+    removeRuleConfirm("", "all");
     input.value = "";
 });
 btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListener("click", function () {
@@ -36,6 +35,8 @@ btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListe
         showHideElement(msgList, "hidde", "show");
         btnAnalise.classList.remove("btnLoading");
     }, 4000);
+    input.value = "";
+    removeRuleConfirm("", "all");
 });
 btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("click", function () {
     if (msgList == null)
@@ -49,31 +50,38 @@ btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("c
 });
 btnsNextPrev.forEach(function (btn) {
     var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
-    var widthContainer = containerListNumbers === null || containerListNumbers === void 0 ? void 0 : containerListNumbers.clientWidth;
-    if (typeof widthScroll === "number" && typeof widthContainer === "number") {
+    var widthContainer = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
+    if (typeof widthScroll !== "number" || typeof widthContainer !== "number")
+        return;
+    detectScrollPosition();
+    hasScollBar(widthContainer, widthScroll);
+    btn.addEventListener("click", function () {
+        var btnId = btn.getAttribute("id");
+        var scrollbarPosition = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollLeft;
+        if (typeof scrollbarPosition !== "number")
+            return;
+        if (btnId === "btn-prevent") {
+            listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollTo({
+                top: 0,
+                left: scrollbarPosition - 100,
+                behavior: "smooth",
+            });
+        }
+        if (btnId === "btn-next") {
+            listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollTo({
+                top: 0,
+                left: scrollbarPosition + 100,
+                behavior: "smooth",
+            });
+        }
         detectScrollPosition();
-        hasScollBar(widthContainer, widthScroll);
-        btn.addEventListener("click", function () {
-            var _a;
-            var btnId = btn.getAttribute("id");
-            var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
-            var scrollbarPosition = Number((_a = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.getAttribute("style")) === null || _a === void 0 ? void 0 : _a.split(": ")[1].split("px")[0]) || 0;
-            if (typeof scrollbarPosition === "number" &&
-                typeof widthScroll === "number") {
-                if (btnId === "btn-prevent") {
-                    listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: ".concat(scrollbarPosition + 100, "px"));
-                }
-                if (btnId === "btn-next") {
-                    listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: ".concat(scrollbarPosition - 100, "px"));
-                }
-            }
-            detectScrollPosition();
-        });
-    }
+    });
 });
-listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.addEventListener("scroll", function () { return detectScrollPosition(); });
+listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.addEventListener("scroll", function () {
+    detectScrollPosition();
+});
 input === null || input === void 0 ? void 0 : input.addEventListener("input", function (e) {
-    verificationRules(e);
+    verificationRules(e.currentTarget.value);
 });
 btnRules === null || btnRules === void 0 ? void 0 : btnRules.addEventListener("click", function () {
     btnRules.parentNode.classList.toggle("showHider");
@@ -87,7 +95,7 @@ function addRuleConfirm(id) {
 }
 function toAdd(propsNumberList, input) {
     var inputValue = parseInt(input.value);
-    var numbersContainer = document.querySelector("#numbers-container>div>ul");
+    var numbersContainer = document.querySelector("#numbers-container>ul");
     var elementLi = document.createElement("li");
     var verification = propsNumberList.indexOf(inputValue);
     if (isNaN(inputValue))
@@ -108,7 +116,7 @@ function analiseNumbers(propsNumberList, propsSum, propsAverage) {
         large: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>O maior numero inserido foi <span>".concat(propsNumberList[inAll - 1], "</span></p>"),
         small: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>O menor numero inserido foi <span>".concat(propsNumberList[0], "</span></p>"),
         sum: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>A soma de todos os numeros e <span>".concat(propsSum, "</span></p>"),
-        average: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>A media de todos os numeros e <span>".concat(propsAverage.toFixed(1), "</span></p>")
+        average: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n    <svg width=\"800px\" height=\"800px\" viewBox=\"0 0 16 16\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n    <path fill=\"#444\" d=\"M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z\"></path>\n    </svg><p>A media de todos os numeros e <span>".concat(propsAverage.toFixed(1), "</span></p>"),
     };
     if (inAll === 0)
         return;
@@ -136,70 +144,69 @@ function sum(numbers) {
 function hasScollBar(propsWidthContainer, propsWidthScroll) {
     btnsNextPrev.forEach(function (btn) {
         showHideElement(btn, "show", "hidde");
-        if (propsWidthScroll < propsWidthContainer)
+        if (propsWidthScroll === propsWidthContainer)
             return;
         showHideElement(btn, "hidde", "show");
     });
 }
 function detectScrollPosition() {
-    var _a;
-    var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
-    var widthContainer = containerListNumbers === null || containerListNumbers === void 0 ? void 0 : containerListNumbers.clientWidth;
-    var scrollbarPosition = Number((_a = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.getAttribute("style")) === null || _a === void 0 ? void 0 : _a.split(": ")[1].split("px")[0])
-        || 0;
+    var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
+    var widthContainer = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
+    var scrollbarPosition = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollLeft;
+    console.log(widthScroll);
+    console.log(widthContainer);
+    console.log(scrollbarPosition);
     if (typeof widthScroll === "number" &&
         typeof widthContainer === "number" &&
         typeof scrollbarPosition === "number") {
-        if (widthContainer > widthScroll)
-            return;
-        if (Math.abs(scrollbarPosition) + widthContainer > widthScroll) {
+        if (scrollbarPosition + widthContainer === widthScroll) {
             showHideElement(btnsNextPrev[1], "show", "hidde");
-            showHideElement(btnsNextPrev[0], "hidde", "show");
-            listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: ".concat(widthContainer - widthScroll, "px"));
         }
-        if (Math.abs(scrollbarPosition) + widthContainer < widthScroll) {
+        if (scrollbarPosition + widthContainer < widthScroll) {
             showHideElement(btnsNextPrev[1], "hidde", "show");
+        }
+        if (scrollbarPosition === 0) {
             showHideElement(btnsNextPrev[0], "show", "hidde");
         }
-        if (scrollbarPosition > 1) {
-            showHideElement(btnsNextPrev[0], "show", "hidde");
-            listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.setAttribute("style", "left: 0px");
-        }
-        if (scrollbarPosition < 0) {
+        if (scrollbarPosition > 0) {
             showHideElement(btnsNextPrev[0], "hidde", "show");
         }
     }
 }
-function verificationRules(e) {
-    var ruleIsValid = document.getElementById("is-valid");
-    var ruleNoNegative = document.getElementById("no-negative");
-    var ruleNoRepeat = document.getElementById("no-repeat");
-    var ruleOneAndOneHundred = document.getElementById("one-and-onehundred");
-    var inputValue = e.currentTarget.value;
+function verificationRules(inputValue) {
     var existNumber = numberList.includes(Number(inputValue));
-    if (isNaN(parseInt(inputValue)) ||
-        isNaN(parseFloat(inputValue))) {
-        ruleIsValid === null || ruleIsValid === void 0 ? void 0 : ruleIsValid.classList.remove("rule-confirm");
+    if (isNaN(parseInt(inputValue)) || isNaN(parseFloat(inputValue))) {
+        removeRuleConfirm("is-valid", "single");
     }
     else {
         addRuleConfirm("is-valid");
     }
-    if (inputValue < 0) {
-        ruleNoNegative === null || ruleNoNegative === void 0 ? void 0 : ruleNoNegative.classList.remove("rule-confirm");
+    if (Number(inputValue) < 0) {
+        removeRuleConfirm("no-negative", "single");
     }
     else {
         addRuleConfirm("no-negative");
     }
     if (existNumber) {
-        ruleNoRepeat === null || ruleNoRepeat === void 0 ? void 0 : ruleNoRepeat.classList.remove("rule-confirm");
+        removeRuleConfirm("no-repeat", "single");
     }
     else {
         addRuleConfirm("no-repeat");
     }
-    if (inputValue < 0 || inputValue > 100) {
-        ruleOneAndOneHundred === null || ruleOneAndOneHundred === void 0 ? void 0 : ruleOneAndOneHundred.classList.remove("rule-confirm");
+    if (Number(inputValue) < 0 || Number(inputValue) > 100) {
+        removeRuleConfirm("one-and-onehundred", "single");
     }
     else {
         addRuleConfirm("one-and-onehundred");
     }
+}
+function removeRuleConfirm(id, option) {
+    listOfRules.forEach(function (element) {
+        if (option === "single" && id === element.id) {
+            element.classList.remove("rule-confirm");
+        }
+        if (option === "all") {
+            element.classList.remove("rule-confirm");
+        }
+    });
 }
