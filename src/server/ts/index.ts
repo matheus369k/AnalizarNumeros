@@ -24,9 +24,6 @@ btnAdd?.addEventListener("click", (e) => {
   if (scrollbarPosition <= 0) showHideElement(btnsNextPrev[0], "show", "hidde");
 
   toAdd(numberList, input);
-  removeRuleConfirm("", "all");
-
-  input.value = "";
 });
 
 btnAnalise?.addEventListener("click", () => {
@@ -65,6 +62,9 @@ btnClose?.addEventListener("click", () => {
   for (let count = numbersChildren - 1; count > -1; count--) {
     elementsChildren[count].remove()
   }
+  
+  listNumbers?.parentNode?.classList.add("hidde-container");
+  btnAnalise?.classList.add("hidde-btn");
 });
 
 btnsNextPrev.forEach((btn) => {
@@ -128,19 +128,26 @@ function toAdd(propsNumberList: number[], input: HTMLElement): void {
   const numbersContainer = document.querySelector("#numbers-container>ul");
   const elementLi = document.createElement("li");
 
-  const verification = propsNumberList.indexOf(inputValue);
+  const verification = propsNumberList.includes(inputValue);
 
   if (isNaN(inputValue)) return;
 
   if (inputValue < 1 || inputValue > 100) return;
 
-  if (verification > 0 || numbersContainer == null) return;
+  if (verification || numbersContainer == null) return;
 
   propsNumberList.push(inputValue);
   sortList(propsNumberList);
   elementLi.textContent = `${inputValue}`;
 
+  removeRuleConfirm("", "all");
+
+  input.value = "";
+
   numbersContainer.appendChild(elementLi);
+
+  numbersContainer.parentNode?.classList.remove("hidde-container");
+  btnAnalise?.classList.remove("hidde-btn");
 }
 
 function analiseNumbers(
@@ -154,7 +161,7 @@ function analiseNumbers(
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
-    </svg><p>Foram registrados <span>${inAll}</span> numeros ao todo</p>`,
+    </svg><p>Foram registrados <span>${inAll}</span> numero(s) ao todo</p>`,
     large: `<?xml version="1.0" encoding="utf-8"?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -171,12 +178,12 @@ function analiseNumbers(
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
-    </svg><p>A soma de todos os numeros e <span>${propsSum}</span></p>`,
+    </svg><p>A soma de todo(s) o(s) numero(s) e <span>${propsSum}</span></p>`,
     average: `<?xml version="1.0" encoding="utf-8"?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <svg width="800px" height="800px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path fill="#444" d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"></path>
-    </svg><p>A media de todos os numeros e <span>${propsAverage.toFixed(
+    </svg><p>A media de todo(s) o(s) numero(s) e <span>${propsAverage.toFixed(
       1
     )}</span></p>`,
   };

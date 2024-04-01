@@ -72,3 +72,19 @@
     display: none;
   }
 }
+
+.btn-analise.hidde-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .btn-analise {
+    width: 186px;
+    height: 47px;
+
+    span {
+      font-size: 16px;
+    }
+  }
+}

@@ -14,7 +14,7 @@
     margin-left: 25px;
   }
 
-  input::placeholder{
+  input::placeholder {
     user-select: none;
     -webkit-user-select: none;
   }
@@ -29,5 +29,20 @@
     letter-spacing: 2px;
     width: 100%;
   }
+}
 
+@media (max-width: 600px) {
+  .form-get-Numbers {
+    width: 380px;
+    height: 47px;
+    margin: 80px auto;
+
+    input {
+      margin-left: 15px;
+    }
+
+    .get-number {
+      font-size: 1.1rem;
+    }
+  }
 }

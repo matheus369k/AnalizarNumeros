@@ -7,6 +7,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  transition: all .4s ease-in-out;
   align-items: center;
 
   ul {
@@ -62,5 +63,26 @@
 
   button.hidde {
     visibility: hidden;
+  }
+}
+
+.numbers-container.hidde-container {
+  bottom: -56px;
+}
+
+@media (max-width: 769px) {
+  .numbers-container {
+  
+    ul {
+      column-gap: 15px;
+      width: 80%;
+  
+      li {
+  
+        &::after {
+          margin-left: 15px;
+        }
+      }
+    }
   }
 }

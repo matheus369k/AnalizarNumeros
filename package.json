@@ -6,8 +6,8 @@
   "type": "module",
   "main": "./src/server/index.js",
   "scripts": {
-    "dev:tsc": "tsc --watch ./src/server/index.ts ./src/server/index.js",
-    "dev:sass": "sass --watch src/style/scss/index.scss src/style/index.css",
+    "dev:tsc": "tsc --watch src/server/ts/index.ts --outDir src/server",
+    "dev:sass": "sass --watch src/style/scss/index.scss -o src/style/index.css",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test": "jest",
