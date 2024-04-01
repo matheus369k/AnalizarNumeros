@@ -7,9 +7,11 @@ const btnsNextPrev = document.querySelectorAll("#numbers-container>button");
 const listNumbers = document.querySelector("#numbers-container>ul");
 const listOfRules = document.querySelectorAll("#rule>li");
 const btnRules = document.getElementById("btn-rules");
+const lableComfirmNumber = document.getElementById("lable-comfirm-number");
 const numberList: number[] = [];
 
 btnAdd?.addEventListener("click", (e) => {
+  const allConfirmRules = document.querySelectorAll(".rule-confirm");
   const widthScroll = listNumbers?.scrollWidth;
   const widthContainer = listNumbers?.clientWidth;
   const scrollbarPosition = listNumbers?.scrollLeft;
@@ -21,9 +23,11 @@ btnAdd?.addEventListener("click", (e) => {
     hasScollBar(widthContainer, widthScroll);
   }
 
-  if (scrollbarPosition <= 0) showHideElement(btnsNextPrev[0], "show", "hidde");
+  if (scrollbarPosition <= 0) showHideElement(btnsNextPrev[0], "show", "hidde");  
 
-  toAdd(numberList, input);
+  if (allConfirmRules.length === listOfRules.length){
+    toAdd(numberList, input);
+  }
 });
 
 btnAnalise?.addEventListener("click", () => {
@@ -109,6 +113,13 @@ listNumbers?.addEventListener("scroll", () => {
 
 input?.addEventListener("input", (e) => {
   verificationRules(e.currentTarget.value);
+  const allConfirmRules = document.querySelectorAll(".rule-confirm");
+
+  if (allConfirmRules.length === listOfRules.length){
+    lableComfirmNumber?.classList.remove("hidde-lable");
+  } else {
+    lableComfirmNumber?.classList.add("hidde-lable");
+  }
 });
 
 btnRules?.addEventListener("click", () => {
@@ -126,15 +137,15 @@ function addRuleConfirm(id: string): void {
 function toAdd(propsNumberList: number[], input: HTMLElement): void {
   const inputValue: number = parseInt(input.value);
   const numbersContainer = document.querySelector("#numbers-container>ul");
-  const elementLi = document.createElement("li");
+  const elementLi = document.createElement("li");/* 
 
   const verification = propsNumberList.includes(inputValue);
 
   if (isNaN(inputValue)) return;
 
-  if (inputValue < 1 || inputValue > 100) return;
+  if (inputValue < 1 || inputValue > 100) return; */
 
-  if (verification || numbersContainer == null) return;
+  if (numbersContainer == null) return;
 
   propsNumberList.push(inputValue);
   sortList(propsNumberList);
@@ -148,6 +159,7 @@ function toAdd(propsNumberList: number[], input: HTMLElement): void {
 
   numbersContainer.parentNode?.classList.remove("hidde-container");
   btnAnalise?.classList.remove("hidde-btn");
+  lableComfirmNumber?.classList.add("hidde-lable");
 }
 
 function analiseNumbers(
@@ -290,6 +302,12 @@ function verificationRules(inputValue: string): void {
     removeRuleConfirm("one-and-onehundred", "single");
   } else {
     addRuleConfirm("one-and-onehundred");
+  }
+
+  if (!Number.isInteger(Number(inputValue))){
+    removeRuleConfirm("inter-number", "single");
+  } else {
+    addRuleConfirm("inter-number");
   }
 }
 

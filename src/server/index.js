@@ -7,8 +7,10 @@ var btnsNextPrev = document.querySelectorAll("#numbers-container>button");
 var listNumbers = document.querySelector("#numbers-container>ul");
 var listOfRules = document.querySelectorAll("#rule>li");
 var btnRules = document.getElementById("btn-rules");
+var lableComfirmNumber = document.getElementById("lable-comfirm-number");
 var numberList = [];
 btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click", function (e) {
+    var allConfirmRules = document.querySelectorAll(".rule-confirm");
     var widthScroll = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollWidth;
     var widthContainer = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.clientWidth;
     var scrollbarPosition = listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.scrollLeft;
@@ -20,7 +22,9 @@ btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener("click",
     }
     if (scrollbarPosition <= 0)
         showHideElement(btnsNextPrev[0], "show", "hidde");
-    toAdd(numberList, input);
+    if (allConfirmRules.length === listOfRules.length) {
+        toAdd(numberList, input);
+    }
 });
 btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.addEventListener("click", function () {
     if (msgList == null)
@@ -90,6 +94,13 @@ listNumbers === null || listNumbers === void 0 ? void 0 : listNumbers.addEventLi
 });
 input === null || input === void 0 ? void 0 : input.addEventListener("input", function (e) {
     verificationRules(e.currentTarget.value);
+    var allConfirmRules = document.querySelectorAll(".rule-confirm");
+    if (allConfirmRules.length === listOfRules.length) {
+        lableComfirmNumber === null || lableComfirmNumber === void 0 ? void 0 : lableComfirmNumber.classList.remove("hidde-lable");
+    }
+    else {
+        lableComfirmNumber === null || lableComfirmNumber === void 0 ? void 0 : lableComfirmNumber.classList.add("hidde-lable");
+    }
 });
 btnRules === null || btnRules === void 0 ? void 0 : btnRules.addEventListener("click", function () {
     btnRules.parentNode.classList.toggle("showHider");
@@ -105,13 +116,14 @@ function toAdd(propsNumberList, input) {
     var _a;
     var inputValue = parseInt(input.value);
     var numbersContainer = document.querySelector("#numbers-container>ul");
-    var elementLi = document.createElement("li");
-    var verification = propsNumberList.includes(inputValue);
-    if (isNaN(inputValue))
-        return;
-    if (inputValue < 1 || inputValue > 100)
-        return;
-    if (verification || numbersContainer == null)
+    var elementLi = document.createElement("li"); /*
+  
+    const verification = propsNumberList.includes(inputValue);
+  
+    if (isNaN(inputValue)) return;
+  
+    if (inputValue < 1 || inputValue > 100) return; */
+    if (numbersContainer == null)
         return;
     propsNumberList.push(inputValue);
     sortList(propsNumberList);
@@ -121,6 +133,7 @@ function toAdd(propsNumberList, input) {
     numbersContainer.appendChild(elementLi);
     (_a = numbersContainer.parentNode) === null || _a === void 0 ? void 0 : _a.classList.remove("hidde-container");
     btnAnalise === null || btnAnalise === void 0 ? void 0 : btnAnalise.classList.remove("hidde-btn");
+    lableComfirmNumber === null || lableComfirmNumber === void 0 ? void 0 : lableComfirmNumber.classList.add("hidde-lable");
 }
 function analiseNumbers(propsNumberList, propsSum, propsAverage) {
     var inAll = propsNumberList.length;
@@ -208,6 +221,12 @@ function verificationRules(inputValue) {
     }
     else {
         addRuleConfirm("one-and-onehundred");
+    }
+    if (!Number.isInteger(Number(inputValue))) {
+        removeRuleConfirm("inter-number", "single");
+    }
+    else {
+        addRuleConfirm("inter-number");
     }
 }
 function removeRuleConfirm(id, option) {

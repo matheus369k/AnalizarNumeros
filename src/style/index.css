@@ -42,6 +42,16 @@ texturea:focus, input:focus, select:focus {
   user-select: none;
   -webkit-user-select: none;
 }
+.form-get-Numbers label,
+.form-get-Numbers svg, .form-get-Numbers path {
+  width: 30px;
+  height: 30px;
+  fill: green;
+  margin-right: 15px;
+}
+.form-get-Numbers label.hidde-lable {
+  visibility: hidden;
+}
 .form-get-Numbers .submit {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 3rem;

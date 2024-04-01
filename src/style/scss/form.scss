@@ -19,6 +19,18 @@
     -webkit-user-select: none;
   }
 
+  label,
+  svg, path {
+    width: 30px;
+    height: 30px;
+    fill: green;
+    margin-right: 15px;
+  }
+
+  label.hidde-lable{
+    visibility: hidden;
+  }
+
   .submit {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3rem;
