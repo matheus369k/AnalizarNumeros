@@ -1,0 +1,15 @@
+/* - com react 
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
+} 
+*/
+
+/* - sem react 
+{
+    "presets": ["@babel/preset-env"]
+} 
+*/
+
+{
+    "presets": ["@babel/preset-env"]
+}
