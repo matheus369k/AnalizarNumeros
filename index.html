@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Analaizador de Numeros</title>
+    <title>Analisar Numeros</title>
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -25,11 +25,9 @@
           class="get-number"
           type="number"
           id="get-number"
-          placeholder="Digite um numero...."
+          placeholder="Adicione Um Numero...."
         />
-        <label id="lable-comfirm-number" for="get-number" class="hidde-lable">
-          <?xml version="1.0" encoding="utf-8"?>
-          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+        <label id="label-confirm-number" for="get-number" class="hide-label">
           <svg
             width="800px"
             height="800px"
@@ -48,11 +46,10 @@
       <button
         title="Analisar"
         type="button"
-        class="btn-analise hidde-btn"
-        id="btn-analise"
+        class="btn-analyze hide-btn"
+        id="btn-analyze"
       >
         <i>
-          <?xml version="1.0" encoding="utf-8"?>
           <svg
             width="800px"
             height="800px"
@@ -81,16 +78,15 @@
             </defs>
           </svg>
         </i>
-        <span>Analizar</span>
+        <span>Analisar</span>
       </button>
       <div class="rules-container">
         <button
           title="Regras"
           id="btn-rules"
-          class="btn-show-hidder-rules"
+          class="btn-show-hide-rules"
           type="button"
         >
-          <?xml version="1.0" encoding="utf-8"?>
           <svg
             width="800px"
             height="800px"
@@ -113,106 +109,90 @@
           <span>Regras</span>
         </button>
         <ul id="rule" class="rule-list">
-          <li id="one-and-onehundred">
-            <i
-              ><?xml version="1.0" encoding="utf-8"?>
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg
-                width="800px"
-                height="800px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+          <li id="one-and-one-hundred">
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 16 16"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                fill="#444"
+                d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
               >
-                <path
-                  fill="#444"
-                  d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
-                ></path></svg
-            ></i>
-            <p>Deve ser um valor de 0 a 100.</p>
+              </svg>
+            <p>Deve ser um valor de 1 a 100.</p>
           </li>
           <li id="no-repeat">
-            <i
-              ><?xml version="1.0" encoding="utf-8"?>
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg
-                width="800px"
-                height="800px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 16 16"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                fill="#444"
+                d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
               >
-                <path
-                  fill="#444"
-                  d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
-                ></path></svg
-            ></i>
+            </svg>
             <p>Não pode ser um numero repetido.</p>
           </li>
           <li id="no-negative">
-            <i
-              ><?xml version="1.0" encoding="utf-8"?>
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg
-                width="800px"
-                height="800px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 16 16"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                fill="#444"
+                d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
               >
-                <path
-                  fill="#444"
-                  d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
-                ></path></svg
-            ></i>
+            </svg>
             <p>Não pode ser um valor Negativo.</p>
           </li>
           <li id="is-valid">
-            <i
-              ><?xml version="1.0" encoding="utf-8"?>
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg
-                width="800px"
-                height="800px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 16 16"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                fill="#444"
+                d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
               >
-                <path
-                  fill="#444"
-                  d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
-                ></path></svg
-            ></i>
+            </svg>
             <p>Deve ser um numero valido.</p>
           </li>
           <li id="inter-number">
-            <i
-              ><?xml version="1.0" encoding="utf-8"?>
-              <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-              <svg
-                width="800px"
-                height="800px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 16 16"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <path
+                fill="#444"
+                d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
               >
-                <path
-                  fill="#444"
-                  d="M7.3 14.2l-7.1-5.2 1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"
-                ></path></svg
-            ></i>
+            </svg>
             <p>Deve ser um valor inteiro.</p>
           </li>
         </ul>
       </div>
-      <div id="numbers-container" class="numbers-container hidde-container">
+      <div id="numbers-container" class="numbers-container hide-container">
         <button id="btn-prevent" class="show" title="Prevent" type="button">
-          <?xml version="1.0" encoding="utf-8"?>
           <svg
             fill="#000000"
             height="800px"
@@ -235,7 +215,6 @@
         </button>
         <ul></ul>
         <button id="btn-next" class="show" title="Next" type="button">
-          <?xml version="1.0" encoding="utf-8"?>
           <svg
             fill="#000000"
             height="800px"
@@ -257,9 +236,8 @@
           </svg>
         </button>
       </div>
-      <div id="msg-container" class="msg-container hidde">
+      <div id="msg-container" class="msg-container hide">
         <button id="btn-close" title="Fechar" type="button">
-          <?xml version="1.0" encoding="utf-8"?>
           <svg
             width="800px"
             height="800px"

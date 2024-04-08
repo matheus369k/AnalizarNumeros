@@ -10,7 +10,7 @@
   }
 }
 
-.btn-analise {
+.btn-analyze {
   width: 206px;
   height: 54px;
   background-color: rgb(29, 29, 29, 80%);
@@ -58,7 +58,7 @@
   }
 }
 
-.btn-analise.btnLoading {
+.btn-analyze.btnLoading {
   i::before {
     font-size: 16px;
     font-weight: normal;
@@ -73,13 +73,13 @@
   }
 }
 
-.btn-analise.hidde-btn {
+.btn-analyze.hide-btn {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 @media (max-width: 500px) {
-  .btn-analise {
+  .btn-analyze {
     width: 186px;
     height: 47px;
 

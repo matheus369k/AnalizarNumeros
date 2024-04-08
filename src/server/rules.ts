@@ -1,64 +1,67 @@
+import { addClass, removeClass } from "./add-remove-toggle";
+
 export const addRuleConfirm = (
-  id: string,
-  listOfRules: NodeListOf<Element>
+  id: string
 ): void => {
-  listOfRules.forEach((element) => {
-    if (element.getAttribute("id") === id) {
-      element.classList.add("rule-confirm");
+  const listOfRules = document.querySelectorAll("#rule>li");
+
+  listOfRules.forEach((rule) => {
+    if (rule.getAttribute("id") === id) {
+      addClass(rule, "rule-confirm");
     }
   });
 };
 
 export const verificationRules = (
-  inputValue: string,
-  numberList: number[],
-  listOfRules: NodeListOf<Element>
+  inputValue: number,
+  numberList: number[]
 ): void => {
-  const existNumber = numberList.includes(Number(inputValue));
+  const existNumber = numberList.includes(inputValue);
 
-  if (isNaN(parseInt(inputValue)) || isNaN(parseFloat(inputValue))) {
-    removeRuleConfirm("is-valid", "single", listOfRules);
+  if (isNaN(inputValue)) {
+    removeRuleConfirm("is-valid", "single");
   } else {
-    addRuleConfirm("is-valid", listOfRules);
+    addRuleConfirm("is-valid");
   }
 
-  if (Number(inputValue) < 0) {
-    removeRuleConfirm("no-negative", "single", listOfRules);
+  if (inputValue < 0) {
+    removeRuleConfirm("no-negative", "single");
   } else {
-    addRuleConfirm("no-negative", listOfRules);
+    addRuleConfirm("no-negative");
   }
 
   if (existNumber) {
-    removeRuleConfirm("no-repeat", "single", listOfRules);
+    removeRuleConfirm("no-repeat", "single");
   } else {
-    addRuleConfirm("no-repeat", listOfRules);
+    addRuleConfirm("no-repeat");
   }
 
-  if (Number(inputValue) < 0 || Number(inputValue) > 100) {
-    removeRuleConfirm("one-and-onehundred", "single", listOfRules);
+  if (inputValue === 0 || inputValue > 100) {
+    removeRuleConfirm("one-and-one-hundred", "single");
   } else {
-    addRuleConfirm("one-and-onehundred", listOfRules);
+    addRuleConfirm("one-and-one-hundred");
   }
 
-  if (!Number.isInteger(Number(inputValue))) {
-    removeRuleConfirm("inter-number", "single", listOfRules);
+  if (!Number.isInteger(inputValue)) {
+    removeRuleConfirm("inter-number", "single");
   } else {
-    addRuleConfirm("inter-number", listOfRules);
+    addRuleConfirm("inter-number");
   }
 };
 
 export const removeRuleConfirm = (
   id: string,
-  option: string,
-  listOfRules: NodeListOf<Element>
+  option: string
 ): void => {
-  listOfRules.forEach((element) => {
-    if (option === "single" && id === element.id) {
-      element.classList.remove("rule-confirm");
+  const listOfRules = document.querySelectorAll("#rule>li");
+
+  listOfRules.forEach((rule) => {
+    if (option === "single" && id === rule.id) {
+      removeClass(rule, "rule-confirm");
     }
 
     if (option === "all") {
-      element.classList.remove("rule-confirm");
+      removeClass(rule, "rule-confirm");
     }
   });
 };

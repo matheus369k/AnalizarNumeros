@@ -24,84 +24,81 @@
       display: flex;
       column-gap: 5px;
 
-      i {
+      svg,
+      path {
         visibility: hidden;
         margin-top: -3px;
-
-        svg,
-        path {
-          height: 20px;
-          width: 20px;
-          fill: green;
-        }
-      }
-
-      p {
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        text-shadow: 1px 1px rgb(0, 0, 0);
+        height: 20px;
+        width: 20px;
+        fill: green;
       }
     }
 
-    .rule-confirm {
-      i {
-        visibility: visible;
-      }
-
-      p {
-        color: green;
-      }
+    p {
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px rgb(0, 0, 0);
     }
   }
 
-  .btn-show-hidder-rules {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    border-radius: 0 0 10px 0;
-    background-color: rgb(29, 29, 29, 80%);
-    padding-bottom: 8px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.247);
-    width: 150px;
-    height: 80px;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-
-    &::after {
-      content: "";
-      width: 150px;
-      height: 30px;
-      border-radius: 0 0 10px 0;
-      border: 1px solid hsl(0, 0%, 50%, 30%);
-      border-top: none;
-      border-left: none;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
-
+  .rule-confirm {
     svg {
-      width: 20px;
-      height: 20px;
-      margin-bottom: -2px;
-      margin-right: 2px;
-      stroke: none;
-
-      path {
-        stroke: white;
-      }
+      visibility: visible;
     }
 
-    span {
-      font-size: 0.8rem;
-      color: gray;
+    p {
+      color: green;
     }
   }
 }
 
-.rules-container.showHider {
+.btn-show-hide-rules {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-radius: 0 0 10px 0;
+  background-color: rgb(29, 29, 29, 80%);
+  padding-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.247);
+  width: 150px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: -2px;
+    margin-right: 2px;
+    stroke: none;
+
+    path {
+      stroke: white;
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 150px;
+    height: 30px;
+    border-radius: 0 0 10px 0;
+    border: 1px solid hsl(0, 0%, 50%, 30%);
+    border-top: none;
+    border-left: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: gray;
+  }
+}
+
+.rules-container.showHide {
   top: 0;
 }
 
@@ -126,7 +123,7 @@
       align-items: start;
     }
 
-    .btn-show-hidder-rules {
+    .btn-show-hide-rules {
       justify-content: flex-start;
       align-items: center;
       border-radius: 0 0 0 10px;
@@ -150,7 +147,7 @@
     }
   }
 
-  .rules-container.showHider {
+  .rules-container.showHide {
     right: 0;
   }
 }

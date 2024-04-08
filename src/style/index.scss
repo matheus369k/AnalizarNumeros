@@ -1,12 +1,12 @@
 @import './reset.scss';
 @import './form.scss';
-@import './listNumbers.scss';
-@import './btnAnalise.scss';
-@import './analiseMessages.scss';
-@import './rulesContainer.scss';
+@import './numbers-list.scss';
+@import './btn-analyze.scss';
+@import './analyze-messages.scss';
+@import './rules-container.scss';
 
 body {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, .4), rgba(0, 0, 0, .6)), url(../../assets/bg.jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, .4), rgba(0, 0, 0, .6)), url(../assets/bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;   

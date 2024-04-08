@@ -8,7 +8,7 @@
 			"DOM"
 		],
 
-		"rootDir": "src/server",
+		"rootDir": "src",
 		"outDir": "/dist/",
 
 		"strict": true,

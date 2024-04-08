@@ -1,8 +1,5 @@
-export const middle = (
-  numbers: number[],
-  sum: (numbers: number[]) => number
-): number => {
-  return sum(numbers) / numbers.length;
+export const media = (numbers: number[], sum: number): number => {
+  return Number((sum / numbers.length).toFixed(1));
 };
 
 export const sum = (numbers: number[]): number => {

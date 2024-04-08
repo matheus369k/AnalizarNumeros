@@ -1,20 +1,21 @@
-const btnsNextPrev = document.querySelectorAll("#numbers-container>button");
-
-export const hasScollBar = (
+export const hasScrollBar = (
   propsWidthContainer: number,
   propsWidthScroll: number
 ): void => {
-  btnsNextPrev.forEach((btn: Element) => {
-    showHideElement(btn, "show", "hidde");
+  const buttonsNextPrev = document.querySelectorAll("#numbers-container>button");
+  buttonsNextPrev.forEach((btn: Element) => {
+    showHideElement(btn, "show", "hide");
     if (propsWidthScroll === propsWidthContainer) return;
-    showHideElement(btn, "hidde", "show");
+    showHideElement(btn, "hide", "show");
   });
 };
 
-export const detectScrollPosition = (propsListNumbers: Element | null): void => {
-  const widthScroll = propsListNumbers?.scrollWidth;
-  const widthContainer = propsListNumbers?.clientWidth;
-  const scrollbarPosition = propsListNumbers?.scrollLeft;
+export const detectScrollPosition = (
+  widthScroll: number | undefined,
+  widthContainer: number | undefined,
+  scrollbarPosition: number | undefined,
+): void => {
+  const buttonsNextPrev = document.querySelectorAll("#numbers-container>button");
 
   if (
     typeof widthScroll === "number" &&
@@ -22,27 +23,27 @@ export const detectScrollPosition = (propsListNumbers: Element | null): void => 
     typeof scrollbarPosition === "number"
   ) {
     if (scrollbarPosition + widthContainer === widthScroll) {
-      showHideElement(btnsNextPrev[1], "show", "hidde");
+      showHideElement(buttonsNextPrev[1], "show", "hide");
     }
 
     if (scrollbarPosition + widthContainer < widthScroll) {
-      showHideElement(btnsNextPrev[1], "hidde", "show");
+      showHideElement(buttonsNextPrev[1], "hide", "show");
     }
 
     if (scrollbarPosition === 0) {
-      showHideElement(btnsNextPrev[0], "show", "hidde");
+      showHideElement(buttonsNextPrev[0], "show", "hide");
     }
 
     if (scrollbarPosition > 0) {
-      showHideElement(btnsNextPrev[0], "hidde", "show");
+      showHideElement(buttonsNextPrev[0], "hide", "show");
     }
   }
 };
 
-export const showHideElement =(
-    propsMsgList: Element,
-    propsCurrentClass: string,
-    propsNewClass: string
-  ): void => {
-    propsMsgList.classList.replace(propsCurrentClass, propsNewClass);
-  }
+export const showHideElement = (
+  propsMsgList: Element | null,
+  propsCurrentClass: string,
+  propsNewClass: string
+): void => {
+  propsMsgList?.classList.replace(propsCurrentClass, propsNewClass);
+};
