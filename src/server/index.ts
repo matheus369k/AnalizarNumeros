@@ -1,5 +1,6 @@
 import { addClass, removeClass, toggleClass } from "./add-remove-toggle";
 import { orderList } from "./order-list";
+import { delDataOnTheUrlState, getDataOnTheUrlState, setDataOnTheUrlState } from "./urlState";
 const { toAdd } = require("./add");
 const { analyzeNumbers } = require("./analyze");
 const { media, sum } = require("./calc");
@@ -39,6 +40,7 @@ btnAdd?.addEventListener("click", (e) => {
   if (allConfirmRules.length === listOfRules.length) {
     toAdd(numberList, inputValue);
     removeRuleConfirm("", "all");
+    setDataOnTheUrlState(inputValue);
   
     input.value = "";
   }
@@ -72,6 +74,7 @@ btnAnalyze?.addEventListener("click", () => {
 
   if (input) (input as HTMLInputElement).value = "";
   removeRuleConfirm("", "all");
+  addClass(labelConfirmNumber, "hide-label");
 });
 
 btnClose?.addEventListener("click", () => {
@@ -98,6 +101,7 @@ btnClose?.addEventListener("click", () => {
 
   addClass(containerListNumbers, "hide-container");
   addClass(btnAnalyze, "hide-btn");
+  delDataOnTheUrlState();
 });
 
 buttonsNextPrev.forEach((btn) => {
@@ -167,4 +171,11 @@ input?.addEventListener("input", () => {
 
 btnRules?.addEventListener("click", () => {
   toggleClass(containerListOfRules, "showHide");
+});
+
+window.addEventListener("load", () => {
+  getDataOnTheUrlState()?.forEach(number => {
+    toAdd(numberList, Number(number));
+    numberList.push(Number(number))
+  })
 });
