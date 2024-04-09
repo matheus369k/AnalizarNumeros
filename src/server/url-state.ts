@@ -1,17 +1,19 @@
-export function setDataOnTheUrlState(params: number) {
+export function setDataOnTheUrlState(params: number[]) {
+    delDataOnTheUrlState();
+
     const url = new URL(window.location.toString());
 
     url.searchParams.set(
-        'list', 
-        String([url.searchParams.get('list'),params])
-    )
-    window.history.pushState({}, "", url)
+        "list", 
+        String(params)
+    );
+    window.history.pushState({}, "", url);
 }
 
 export function getDataOnTheUrlState() {
     const url = new URL(window.location.toString());
 
-    const paramsList = url.searchParams.get('list')?.split(',');
+    const paramsList = url.searchParams.get("list")?.split(",");
 
     if (paramsList === undefined) return;
 
@@ -24,8 +26,7 @@ export function delDataOnTheUrlState() {
     const url = new URL(window.location.toString());
 
     url.searchParams.delete(
-        'list', 
-        url.searchParams.get('list')?.toString()
+        "list"
     );
-    window.history.pushState({}, "", url)
+    window.history.pushState({}, "", url);
 }

@@ -1,15 +1,11 @@
 import { addClass, removeClass, toggleClass } from "./add-remove-toggle";
 import { orderList } from "./order-list";
-import { delDataOnTheUrlState, getDataOnTheUrlState, setDataOnTheUrlState } from "./urlState";
-const { toAdd } = require("./add");
-const { analyzeNumbers } = require("./analyze");
-const { media, sum } = require("./calc");
-const { removeRuleConfirm, verificationRules } = require("./rules");
-const {
-  detectScrollPosition,
-  hasScrollBar,
-  showHideElement,
-} = require("./scroll");
+import { delDataOnTheUrlState, getDataOnTheUrlState, setDataOnTheUrlState } from "./url-state";
+import { toAdd } from "./add";
+import { analyzeNumbers } from "./analyze";
+import { media, sum } from "./calc";
+import { removeRuleConfirm, verificationRules } from "./rules";
+import { detectScrollPosition, hasScrollBar, showHideElement } from "./scroll";
 require("../style/index.scss");
 
 const msgList = document.querySelector("#msg-container");
@@ -34,13 +30,14 @@ btnAdd?.addEventListener("click", (e) => {
   const scrollbarPosition = listNumbers?.scrollLeft;
   
   e?.preventDefault();
+  console.log(numberList)
 
   if (input == null || scrollbarPosition === undefined) return;
 
   if (allConfirmRules.length === listOfRules.length) {
     toAdd(numberList, inputValue);
     removeRuleConfirm("", "all");
-    setDataOnTheUrlState(inputValue);
+    setDataOnTheUrlState(numberList);
   
     input.value = "";
   }
@@ -176,6 +173,5 @@ btnRules?.addEventListener("click", () => {
 window.addEventListener("load", () => {
   getDataOnTheUrlState()?.forEach(number => {
     toAdd(numberList, Number(number));
-    numberList.push(Number(number))
-  })
+  });
 });
