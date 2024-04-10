@@ -28,7 +28,7 @@ btnAdd?.addEventListener("click", (e) => {
   const widthScroll = listNumbers?.scrollWidth;
   const widthContainer = listNumbers?.clientWidth;
   const scrollbarPosition = listNumbers?.scrollLeft;
-  
+
   e?.preventDefault();
   console.log(numberList)
 
@@ -37,8 +37,8 @@ btnAdd?.addEventListener("click", (e) => {
   if (allConfirmRules.length === listOfRules.length) {
     toAdd(numberList, inputValue);
     removeRuleConfirm("", "all");
-    setDataOnTheUrlState(numberList);
-  
+    setDataOnTheUrlState("list" ,numberList);
+
     input.value = "";
   }
 
@@ -46,7 +46,7 @@ btnAdd?.addEventListener("click", (e) => {
     hasScrollBar(widthContainer, widthScroll);
   }
 
-  if (scrollbarPosition <= 0) { 
+  if (scrollbarPosition <= 0) {
     showHideElement(buttonsNextPrev[0], "show", "hide");
   }
 });
@@ -55,19 +55,19 @@ btnAnalyze?.addEventListener("click", () => {
   const numbersSum = sum(numberList);
   const numberMedia = media(numberList, numbersSum);
 
-  if (msgList == null) return;
   if (numberList.length === 0) return;
 
-  addClass(btnAnalyze, "btnLoading"); 
+  addClass(btnAnalyze, "btnLoading");
   orderList(numberList);
 
   setTimeout(() => {
     analyzeNumbers(numberList, numbersSum, numberMedia);
+    setDataOnTheUrlState("analise", true)
 
     showHideElement(msgList, "hide", "show");
 
     removeClass(btnAnalyze, "btnLoading");
-  }, 4000);
+  }, 2000);
 
   if (input) (input as HTMLInputElement).value = "";
   removeRuleConfirm("", "all");
@@ -78,6 +78,7 @@ btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hide");
+  setDataOnTheUrlState("analise", false)
 });
 
 btnClose?.addEventListener("click", () => {
@@ -98,7 +99,7 @@ btnClose?.addEventListener("click", () => {
 
   addClass(containerListNumbers, "hide-container");
   addClass(btnAnalyze, "hide-btn");
-  delDataOnTheUrlState();
+  delDataOnTheUrlState("list");
 });
 
 buttonsNextPrev.forEach((btn) => {
@@ -108,8 +109,8 @@ buttonsNextPrev.forEach((btn) => {
   if (typeof widthScroll !== "number" || typeof widthContainer !== "number") return;
 
   detectScrollPosition(
-    widthScroll, 
-    widthContainer, 
+    widthScroll,
+    widthContainer,
     listNumbers?.scrollLeft
   );
   hasScrollBar(widthContainer, widthScroll);
@@ -137,8 +138,8 @@ buttonsNextPrev.forEach((btn) => {
     }
 
     detectScrollPosition(
-      listNumbers?.scrollWidth, 
-      listNumbers?.clientWidth, 
+      listNumbers?.scrollWidth,
+      listNumbers?.clientWidth,
       listNumbers?.scrollLeft
     );
   });
@@ -156,7 +157,7 @@ input?.addEventListener("input", () => {
   const inputValue = Number((input as HTMLInputElement).value);
 
   verificationRules(inputValue, numberList);
-  
+
   const allConfirmRules = document.querySelectorAll(".rule-confirm");
 
   if (allConfirmRules.length === listOfRules.length) {
@@ -171,7 +172,12 @@ btnRules?.addEventListener("click", () => {
 });
 
 window.addEventListener("load", () => {
-  getDataOnTheUrlState()?.forEach(number => {
+
+  getDataOnTheUrlState()?.listOfNumber.forEach(number => {
     toAdd(numberList, Number(number));
+
+    if (getDataOnTheUrlState()?.analiseState){
+      btnAnalyze?.click()
+    }
   });
 });
