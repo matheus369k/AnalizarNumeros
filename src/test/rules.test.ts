@@ -3,23 +3,16 @@ import {
   addRuleConfirm,
   removeRuleConfirm,
 } from "../server/rules";
-import { JSDOM } from "jsdom";
 
-const dom = new JSDOM(
-  "<!DOCTYPE html>" +
-    "<html>" +
-    "<body>" +
+document.body.innerHTML = 
     "<ul id='rule' class='rule-list'>" +
-    "<li id='one-and-one-hundred'></li>" +
-    "<li id='no-repeat'></li>" +
-    "<li id='no-negative'></li>" +
-    "<li id='is-valid'></li>" +
-    "<li id='inter-number'></li>" +
-    "</ul>" +
-    "</body>" +
-    "</html>"
-);
-global.document = dom.window.document;
+      "<li id='one-and-one-hundred'></li>" +
+      "<li id='no-repeat'></li>" +
+      "<li id='no-negative'></li>" +
+      "<li id='is-valid'></li>" +
+      "<li id='inter-number'></li>" +
+    "</ul>";
+
 
 const confirmRuleAllElement = document.querySelectorAll("#rule>li");
 test("add class", () => {

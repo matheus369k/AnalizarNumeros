@@ -1,16 +1,9 @@
-import {JSDOM} from "jsdom";
 import { toAdd } from "../server/add";
+test("Adicionar Numeros", () => {
+    document.body.innerHTML = "<div id='numbers-container'><ul></ul></div>";
+    const numbersListContainer = document.querySelector("#numbers-container>ul")
 
-describe("Adicionar Numeros", () => {
-    const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
-    global.document = dom.window.document;
+    toAdd([], 76)
 
-    test("Adicionar", () => {
-        document.body.innerHTML = "<div id='numbers-container'><ul></ul></div>";
-        const numbersListContainer = document.querySelector("#numbers-container>ul")
-
-        toAdd([],76)
-        
-        expect(numbersListContainer?.firstChild?.textContent).toBe("76")
-    });
+    expect(numbersListContainer?.firstChild?.textContent).toBe("76")
 });

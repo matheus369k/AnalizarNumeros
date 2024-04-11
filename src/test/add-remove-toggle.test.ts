@@ -1,8 +1,6 @@
-import { JSDOM } from "jsdom";
 import { addClass, removeClass, toggleClass } from "../server/add-remove-toggle";
 
-const dom = new JSDOM("<!DOCTYPE html><html><body class='remove'></body></html>");
-global.document = dom.window.document;
+document.body.classList.add('remove');
 const bodyElement = document.body
 
 describe("to add, remove, toggle class on the element", () => {

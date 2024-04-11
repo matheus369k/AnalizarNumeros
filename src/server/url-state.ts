@@ -12,10 +12,9 @@ export function setDataOnTheUrlState(name: string, params: number[] | boolean) {
 
 export function getDataOnTheUrlState() {
     const url = new URL(window.location.toString());
-    console.log(window.history.pushState)
 
     const paramsList = url.searchParams.get("list")?.split(",");
-    const analiseState = Boolean(url.searchParams.get("analise"));
+    const analiseState = url.searchParams.get("analise");
 
     if (paramsList === undefined) return;
     if (analiseState === undefined) return;

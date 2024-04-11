@@ -1,23 +1,15 @@
-import { JSDOM } from "jsdom";
 import { detectScrollPosition, hasScrollBar, showHideElement } from "../server/scroll";
 
-const dom = new JSDOM(
-  "<!DOCTYPE html>" +
-    "<html>" +
-    "<body>" +
+document.body.innerHTML =
     "<div id='numbers-container'>" +
-    "<button id='btn-prevent' class='show'>" +
-    "</button>" +
-    "<ul>" +
-    "</ul>" +
-    "<button id='btn-next' class='show'>" +
-    "</button>" +
-    "</div>" +
-    "</body>" +
-    "</html>"
-);
+        "<button id='btn-prevent' class='show'>" +
+        "</button>" +
+        "<ul>" +
+        "</ul>" +
+        "<button id='btn-next' class='show'>" +
+        "</button>" +
+    "</div>";
 
-global.document = dom.window.document;
 const btnNext = document.getElementById("btn-next");
 const btnPrev = document.getElementById("btn-prevent");
 test("Replace classes hide show on the button", () => {

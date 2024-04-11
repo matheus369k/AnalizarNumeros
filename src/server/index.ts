@@ -25,26 +25,28 @@ let numberList: number[] = [];
 btnAdd?.addEventListener("click", (e) => {
   const allConfirmRules = document.querySelectorAll(".rule-confirm");
   const inputValue = Number(input.value);
-  const widthScroll = listNumbers?.scrollWidth;
-  const widthContainer = listNumbers?.clientWidth;
-  const scrollbarPosition = listNumbers?.scrollLeft;
 
   e?.preventDefault();
-  console.log(numberList)
 
-  if (input == null || scrollbarPosition === undefined) return;
+  if (input == null) return;
 
   if (allConfirmRules.length === listOfRules.length) {
     toAdd(numberList, inputValue);
     removeRuleConfirm("", "all");
-    setDataOnTheUrlState("list" ,numberList);
+    setDataOnTheUrlState("list", numberList);
 
     input.value = "";
   }
 
+  const widthScroll = listNumbers?.scrollWidth;
+  const widthContainer = listNumbers?.clientWidth;
+  const scrollbarPosition = listNumbers?.scrollLeft;
+
   if (typeof widthContainer === "number" && typeof widthScroll === "number") {
     hasScrollBar(widthContainer, widthScroll);
   }
+
+  if (scrollbarPosition === undefined) return;
 
   if (scrollbarPosition <= 0) {
     showHideElement(buttonsNextPrev[0], "show", "hide");
@@ -62,12 +64,12 @@ btnAnalyze?.addEventListener("click", () => {
 
   setTimeout(() => {
     analyzeNumbers(numberList, numbersSum, numberMedia);
-    setDataOnTheUrlState("analise", true)
+    setDataOnTheUrlState("analise", true);
 
     showHideElement(msgList, "hide", "show");
 
     removeClass(btnAnalyze, "btnLoading");
-  }, 2000);
+  }, 1000);
 
   if (input) (input as HTMLInputElement).value = "";
   removeRuleConfirm("", "all");
@@ -176,7 +178,7 @@ window.addEventListener("load", () => {
   getDataOnTheUrlState()?.listOfNumber.forEach(number => {
     toAdd(numberList, Number(number));
 
-    if (getDataOnTheUrlState()?.analiseState){
+    if (getDataOnTheUrlState()?.analiseState === 'true') {
       btnAnalyze?.click()
     }
   });

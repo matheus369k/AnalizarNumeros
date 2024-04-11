@@ -151,3 +151,34 @@
     right: 0;
   }
 }
+
+@media (max-width: 400px) {
+  .rules-container {
+    right: -284px;
+    height: 400px;
+    width: 300px;
+
+    .rule-list {
+      width: 283px;
+      height: 300px;
+      padding-left: 10px;
+    }
+
+    .btn-show-hide-rules {
+      padding-left: 10px;
+      width: 375px;
+      height: 35px;
+
+      &::after {
+        width: 91px;
+        height: 35px;
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+  }
+}
