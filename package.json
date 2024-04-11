@@ -45,6 +45,9 @@
     "./bin/*",
     "./lib/*"
   ],
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "typings": "./lib/index.d.ts",
   "dependencies": {
     "sass": "^1.72.0"

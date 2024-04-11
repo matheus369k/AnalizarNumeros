@@ -2,7 +2,6 @@ export function setDataOnTheUrlState(name: string, params: number[] | boolean) {
     delDataOnTheUrlState(name);
 
     const url = new URL(window.location.toString());
-    console.log(url)
 
     url.searchParams.set(
         name,
@@ -13,6 +12,7 @@ export function setDataOnTheUrlState(name: string, params: number[] | boolean) {
 
 export function getDataOnTheUrlState() {
     const url = new URL(window.location.toString());
+    console.log(window.history.pushState)
 
     const paramsList = url.searchParams.get("list")?.split(",");
     const analiseState = Boolean(url.searchParams.get("analise"));
@@ -31,5 +31,6 @@ export function delDataOnTheUrlState(name: string) {
     url.searchParams.delete(
         name
     );
+
     window.history.pushState({}, "", url);
 }
