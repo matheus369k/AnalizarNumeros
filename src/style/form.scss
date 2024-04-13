@@ -58,3 +58,19 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .form-get-Numbers {
+    width: 350px;
+    height: 47px;
+    margin: 80px auto;
+
+    input {
+      margin-left: 15px;
+    }
+
+    .get-number {
+      font-size: 1rem;
+    }
+  }
+}
