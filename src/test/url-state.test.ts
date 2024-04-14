@@ -11,7 +11,7 @@ describe("Url State", () => {
     test("Get params", () => {
         expect(getDataOnTheUrlState()).toEqual({
             listOfNumber: ["1", "6", "3", "7"],
-            analiseState: false,
+            analiseState: null,
         });
     });
     test("Delete params", () => {

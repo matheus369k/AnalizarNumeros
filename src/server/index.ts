@@ -7,7 +7,7 @@ import { toAdd } from "./add";
 import { analyzeNumbers } from "./analyze";
 import { media, sum } from "./calc";
 import { removeRuleConfirm, verificationRules } from "./rules";
-import { detectScrollPosition, hasScrollBar, showHideElement } from "./scroll";
+import { detectScrollPosition, showHideElement } from "./scroll";
 
 const msgList = document.querySelector("#msg-container");
 const btnAnalyze = document.getElementById("btn-analyze");
@@ -22,7 +22,6 @@ const labelConfirmNumber = document.getElementById("label-confirm-number");
 let numberList: number[] = [];
 
 window.addEventListener("load", () => {
-
   getDataOnTheUrlState()?.listOfNumber.forEach(number => {
     toAdd(numberList, Number(number));
 
@@ -30,51 +29,14 @@ window.addEventListener("load", () => {
       btnAnalyze?.click()
     }
   });
-});
-
-buttonsNextPrev.forEach((btn) => {
-  let widthScroll = listNumbers?.scrollWidth;
-  let widthContainer = listNumbers?.clientWidth;
-
-  if (typeof widthScroll !== "number" || typeof widthContainer !== "number") return;
-
+  
   detectScrollPosition(
-    widthScroll,
-    widthContainer,
+    listNumbers?.scrollWidth,
+    listNumbers?.clientWidth,
     listNumbers?.scrollLeft
   );
-  hasScrollBar(widthContainer, widthScroll);
-
-  btn.addEventListener("click", () => {
-    const btnId = btn.getAttribute("id");
-    const scrollbarPosition = listNumbers?.scrollLeft;
-
-    if (typeof scrollbarPosition !== "number") return;
-
-    if (btnId === "btn-prevent") {
-      listNumbers?.scrollTo({
-        top: 0,
-        left: scrollbarPosition - 100,
-        behavior: "smooth",
-      });
-    }
-
-    if (btnId === "btn-next") {
-      listNumbers?.scrollTo({
-        top: 0,
-        left: scrollbarPosition + 100,
-        behavior: "smooth",
-      });
-    }
-
-    detectScrollPosition(
-      listNumbers?.scrollWidth,
-      listNumbers?.clientWidth,
-      listNumbers?.scrollLeft
-    );
-  });
+  removeClass(document.body, "loading")
 });
-
 
 btnAdd?.addEventListener("click", (e) => {
   const allConfirmRules = document.querySelectorAll(".rule-confirm");
@@ -91,20 +53,12 @@ btnAdd?.addEventListener("click", (e) => {
 
     input.value = "";
   }
-
-  const widthScroll = listNumbers?.scrollWidth;
-  const widthContainer = listNumbers?.clientWidth;
-  const scrollbarPosition = listNumbers?.scrollLeft;
-
-  if (typeof widthContainer === "number" && typeof widthScroll === "number") {
-    hasScrollBar(widthContainer, widthScroll);
-  }
-
-  if (scrollbarPosition === undefined) return;
-
-  if (scrollbarPosition <= 0) {
-    showHideElement(buttonsNextPrev[0], "show", "hide");
-  }
+  
+  detectScrollPosition(
+    listNumbers?.scrollWidth,
+    listNumbers?.clientWidth,
+    listNumbers?.scrollLeft
+  );
 });
 
 btnAnalyze?.addEventListener("click", () => {
@@ -131,13 +85,6 @@ btnAnalyze?.addEventListener("click", () => {
 });
 
 btnClose?.addEventListener("click", () => {
-  if (msgList == null) return;
-
-  showHideElement(msgList, "show", "hide");
-  setDataOnTheUrlState("analise", false)
-});
-
-btnClose?.addEventListener("click", () => {
   const containerListNumbers = document.getElementById("numbers-container");
   const numbersChildren = listNumbers?.childElementCount;
   const elementsChildren = listNumbers?.childNodes;
@@ -145,6 +92,7 @@ btnClose?.addEventListener("click", () => {
   if (msgList == null) return;
 
   showHideElement(msgList, "show", "hide");
+  setDataOnTheUrlState("analise", false)
 
   if (numbersChildren === undefined || elementsChildren === undefined) return;
 
@@ -159,12 +107,43 @@ btnClose?.addEventListener("click", () => {
   delDataOnTheUrlState("list");
 });
 
-listNumbers?.addEventListener("scroll", () => {
-  const widthScroll = listNumbers?.scrollWidth;
-  const widthContainer = listNumbers?.clientWidth;
-  const scrollbarPosition = listNumbers?.scrollLeft;
+buttonsNextPrev.forEach((btn) => {
+  detectScrollPosition(
+    listNumbers?.scrollWidth,
+    listNumbers?.clientWidth,
+    listNumbers?.scrollLeft,
+  );
 
-  detectScrollPosition(widthScroll, widthContainer, scrollbarPosition);
+  btn.addEventListener("click", () => {
+    const btnId = btn.getAttribute("id");
+    const scrollbarPosition = listNumbers?.scrollLeft;
+
+    if (typeof scrollbarPosition !== "number") return;
+
+    if (btnId === "btn-prevent") {
+      listNumbers?.scrollTo({
+        top: 0,
+        left: scrollbarPosition - 100,
+        behavior: "smooth",
+      });
+    }
+
+    if (btnId === "btn-next") {
+      listNumbers?.scrollTo({
+        top: 0,
+        left: scrollbarPosition + 100,
+        behavior: "smooth",
+      });
+    }
+  });
+});
+
+listNumbers?.addEventListener("scroll", () => {
+  detectScrollPosition(
+    listNumbers?.scrollWidth,
+    listNumbers?.clientWidth,
+    listNumbers?.scrollLeft
+  );
 });
 
 input?.addEventListener("input", () => {

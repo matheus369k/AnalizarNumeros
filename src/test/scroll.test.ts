@@ -1,4 +1,4 @@
-import { detectScrollPosition, hasScrollBar, showHideElement } from "../server/scroll";
+import { detectScrollPosition, showHideElement } from "../server/scroll";
 
 document.body.innerHTML =
     "<div id='numbers-container'>" +
@@ -16,21 +16,6 @@ test("Replace classes hide show on the button", () => {
     showHideElement(btnPrev, "show", "hide");
 
     expect(btnPrev?.classList).toContain("hide");
-})
-
-describe("detect state scroll init", () => {
-    test("No has scroll", ()=> {
-        hasScrollBar(1000, 1000);
-
-        expect(btnNext?.classList).toContain("hide");
-        expect(btnPrev?.classList).toContain("hide");
-    });
-    test("Has scroll", () => {
-        hasScrollBar(1000, 1100);
-
-        expect(btnNext?.classList).toContain("show");
-        expect(btnPrev?.classList).toContain("show");
-    });
 });
 
 describe("Verification hide show scroll for the position", () => {

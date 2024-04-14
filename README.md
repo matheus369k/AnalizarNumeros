@@ -26,7 +26,7 @@ __5. Média dos Números:__ Calcular a média dos valores, dividindo a soma tota
 ## __🧰Ferramantas__
 <div>
     <img 
-        src="    https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"
+        src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"
         alt="HTML5" 
         height='25px'
     />

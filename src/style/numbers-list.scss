@@ -1,6 +1,6 @@
 .numbers-container {
   position: absolute;
-  bottom: 0%;
+  bottom: 0;
   left: 0;
   background-color: rgb(29, 29, 29, 80%);
   height: 55px;
@@ -17,7 +17,6 @@
     display: flex;
     column-gap: 18px;
     font-weight: bold;
-    overflow-y: hidden;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
 
@@ -52,6 +51,7 @@
     height: 40px;
     text-align: center;
     cursor: pointer;
+    z-index: 0;
 
     svg,
     path {
@@ -72,17 +72,24 @@
 
 @media (max-width: 769px) {
   .numbers-container {
-  
+    bottom: auto;
+    top: 0;
+
     ul {
       column-gap: 15px;
       width: 80%;
-  
+
       li {
-  
+
         &::after {
           margin-left: 15px;
         }
       }
     }
+  }
+
+  .numbers-container.hide-container {
+    top: -56px;
+    bottom: auto;
   }
 }
